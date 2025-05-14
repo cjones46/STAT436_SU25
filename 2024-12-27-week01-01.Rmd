@@ -5,6 +5,10 @@ description: |
   simple scatterplot.
 author:
   - name: Kris Sankaran, adapted by Cameron Jones for Summer 2025
+layout: post
+output:
+  distill::distill_article:
+    self_contained: false
 ---
 
 ```{r, echo = FALSE}
