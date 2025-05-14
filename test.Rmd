@@ -3,9 +3,10 @@ title: "Introduction to ggplot2"
 description: |
   A discussion of ggplot2 terminology, and an example of iteratively refining a
   simple scatterplot.
-author:
-  - name: Kris Sankaran, adapted by Cameron Jones for Summer 2025
-output: rmdformats::readthedown
+author: Kris Sankaran, adapted by Cameron Jones
+date: Summer 2025
+  
+output: rmdformats::robobook
 ---
 
 ```{r, echo = FALSE}
