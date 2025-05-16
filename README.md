@@ -1,2 +1,3 @@
-# datavis_test
-testing GitHub pages for summer 25 data vis
+# STAT 436: Summer 2025
+
+This is the central repository where files for SU25 STAT 436 are hosted.
