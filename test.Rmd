@@ -15,7 +15,7 @@ knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE, echo = TR
 ```
 
 
-# Cameron is adding this from RStudio.
+# This is a second commit from RStudio.
 
 
 [ggplot2](https://ggplot2.tidyverse.org/) is an R implementation of the _Grammar
