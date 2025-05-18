@@ -15,6 +15,9 @@ knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE, echo = TR
 ```
 
 
+# Cameron is adding this from RStudio.
+
+
 [ggplot2](https://ggplot2.tidyverse.org/) is an R implementation of the _Grammar
 of Graphics_. The idea is to define the basic "words" from which visualizations
 are built, and then let users compose them in original ways. This is in contrast
