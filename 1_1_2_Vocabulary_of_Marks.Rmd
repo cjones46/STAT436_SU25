@@ -430,7 +430,7 @@ ggplot(murders) +
 
 Beeswarm plots implement a more extreme version of "jittering", where the distance of the points above or below their region's center line is arbitrary; it merely forces points outward where they are more clustered. This allows the viewer to maintain their understanding of "one point, one observation" while still effectively emphasizing dense regions.
 
-## Unregistered: ggsoccer
+## Field-Specific Packages: ggsoccer
 
 > TL;DR: The point of showing you `ggsoccer` is not that we will test you on `ggsoccer` specifically, but to show you that there is probably a ggplot-friendly, specialized visualization package out there for whatever your interest is!
 
