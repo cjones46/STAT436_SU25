@@ -1565,7 +1565,7 @@ encodings.</p></li>
 that will be used in these notes. <code>ggplot2</code> is our plotting
 library. <code>readr</code> is used to read data files from a web link,
 and <code>dplyr</code> is useful for some of the data manipulations
-below (we dive into it deeply in Week 2).</p></li>
+below.</p></li>
 </ol>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
@@ -1763,8 +1763,7 @@ within each country cluster. We’ll need to create a new
 <code>data.frame</code> with just the summary information. For this, we
 <code>group_by</code> each cluster, so that a <code>summarise</code>
 call finds the minimum and maximum life expectancies restricted to each
-cluster. We’ll discuss the <code>group_by</code> +
-<code>summarise</code> pattern in detail next week.</p>
+cluster.</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># find summary statistics</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>life_ranges <span class="ot">&lt;-</span> gap2000 <span class="sc">%&gt;%</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cluster) <span class="sc">%&gt;%</span></span>

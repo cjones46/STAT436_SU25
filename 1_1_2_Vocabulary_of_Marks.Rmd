@@ -21,8 +21,7 @@ to develop a rich vocabulary of potential visual encodings.
 2. So, let’s look at a few different types of encodings available in `ggplot2`.
 Before we get started, let's load up the libraries that will be used in these
 notes. `ggplot2` is our plotting library. `readr` is used to read data files
-from a web link, and `dplyr` is useful for some of the data manipulations below
-(we dive into it deeply in Week 2).
+from a web link, and `dplyr` is useful for some of the data manipulations below.
 
 ```{r}
 library(readr)
@@ -250,8 +249,7 @@ bar encode *two* continuous values, a left and right. To illustrate, let's
 compare the minimum and maximimum life expectancies within each country cluster.
 We'll need to create a new `data.frame` with just the summary information. For
 this, we `group_by` each cluster, so that a `summarise` call finds the minimum
-and maximum life expectancies restricted to each cluster. We'll discuss the
-`group_by` + `summarise` pattern in detail next week.
+and maximum life expectancies restricted to each cluster.
     
     ```{r, fig.height = 4.5}
     # find summary statistics
