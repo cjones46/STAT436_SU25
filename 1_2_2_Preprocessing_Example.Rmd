@@ -1,0 +1,105 @@
+---
+title: "Tidy Data Example"
+description: |
+  An extended example of tidying a real-world dataset.
+author: Kris Sankaran, adapted by Cameron Jones
+date: Summer 2025
+  
+output: rmdformats::robobook
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE, echo = TRUE)
+library(tidyverse)
+```
+
+# Raw, Untidy Data
+
+1. Our goal in these notes is to process an un-tidy dataset to allow us to create a line graph of tuberculosis cases over time, by sex and age.
+
+Eventually, this will require us to have "sex" and "age" and "cases" as their own columns, so we can pass them into ggplot aesthetics. But as we see below, that is currently not the case.
+
+2. The raw data and its column names are shown below.
+
+```{r}
+who
+```
+
+```{r}
+colnames(who)
+```
+
+3. According to the data dictionary, the columns have the following meanings,
+
+* The first three letters -> are we counting new or old cases of TB?
+* Next two letters -> Type of tab.
+* Sixth letter -> Sex of patients
+* Remaining numbers -> Age group. E.g., `3544` should be interpreted as 35 - 44
+years old.
+
+We have all of the information we need *somewhere* in this dataset; cases are spread out across rows, but they're here; and age and sex are stored in the column names, but again, they're here in some way. We just need to tidy them up before we can start visualization.
+
+# Tidying
+
+4. Our first step is to `pivot_longer`, because there is quite a bit of information
+implicitly stored in the column names, and we want to make those variables
+explicitly available for visual encoding.
+
+```{r}
+who_longer <- who %>% 
+  pivot_longer(
+    cols = new_sp_m014:newrel_f65,  # notice we can refer to groups of columns without naming each one
+    names_to = "key", 
+    values_to = "cases", 
+    values_drop_na = TRUE # if a cell is empty, we do not keep it in the tidy version
+  )
+
+who_longer
+```
+
+5. The new column `key` contains several variables at once. We can `separate` it
+into gender and age group.
+
+```{r}
+who_separate <- who_longer %>% 
+  mutate(key = str_replace(key, "newrel", "new_rel")) %>%
+  separate(key, c("new", "type", "sexage"), sep = "_") %>%
+  separate(sexage, c("sex", "age"), sep = 1)
+
+who_separate
+```
+
+6. Up to this point we have performed each step one at a time, but it’s possible to chain them into a single block of code. This is good practice, because it avoids having to define intermediate variables that are only ever used once. This is also typically more concise.
+
+```{r}
+who_tidy = who %>%
+  pivot_longer(
+    cols = new_sp_m014:newrel_f65, 
+    names_to = "key", 
+    values_to = "cases", 
+    values_drop_na = TRUE # if a cell is empty, we do not keep it in the tidy version
+  ) %>%
+  mutate(key = str_replace(key, "newrel", "new_rel")) %>%
+  separate(key, c("new", "type", "sexage"), sep = "_") %>%
+  separate(sexage, c("sex", "age"), sep = 1)
+
+who_tidy
+```
+
+# Visualization
+
+7. Now that we've created a tidy dataset where each variable has its own column, we can lean on our knowledge of `dplyr` and `ggplot2` column-based functions to create the following graph in just a few lines of code:  
+
+```{r}
+who_tidy %>% 
+  # We'll show just U.S. data here, but the point is we could now do this for any country with our tidy dataset!
+  filter(country == "United States of America") %>% 
+  mutate(children = age == "014") %>%
+  group_by(year, sex, children) %>% 
+  summarize(cases = sum(cases)) %>% 
+
+ggplot(aes(year, cases)) +
+  geom_line(aes(color = sex, linetype = children))
+```
+
