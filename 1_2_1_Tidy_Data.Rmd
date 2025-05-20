@@ -1,0 +1,89 @@
+---
+title: "Tidy Data"
+description: |
+  The definition of tidy data, and why it's often helpful for visualization.
+author: Kris Sankaran, adapted by Cameron Jones
+date: Summer 2025
+  
+output: rmdformats::robobook
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE, echo = TRUE)
+```
+```{r}
+library(tidyverse)
+theme_set(theme_bw())
+```
+
+# What is Tidy Data?
+
+1. A dataset is called tidy if rows correspond to distinct observations and columns correspond to distinct variables.
+
+2. For visualization, it is important that data be in tidy format. This is because (a) each visual mark will be associated with a row of the dataset and (b) properties of the visual marks will determined by values within the columns. A plot that is easy to create when the data are in tidy format might be very hard to create otherwise.
+
+3. The tidy data might seem like an idea so natural that it’s not worth teaching (let alone formalizing). However, exceptions are encountered frequently, and it’s important that you be able to spot them. Further, there are now many utilities for "tidying" data, and they are worth becoming familiar with.
+
+4. Here is an example of a tidy dataset.
+
+```{r}
+table1
+```
+
+# Why Does it Matter?
+
+It is easy and intuitive to visualize the tidy dataset.
+
+```{r}
+ggplot(table1, aes(x = year, y = cases, col = country)) +
+  geom_point() +
+  geom_line()
+```
+
+5. Below are three non-tidy versions of the same dataset. They are
+representative of more general classes of problems that may arise,
+
+	a. A variable might be implicitly stored within column names, rather than
+	explicitly stored in its own column. Here, the years are stored as column
+	names. It's not really possible to create the plot above using the data in this
+	format.
+
+```{r}
+table4a # cases
+table4b # population
+```
+
+b. The same observation may appear in multiple rows, where each instance of the
+row is associated with a different variable. Here, the observations are the
+country by year combinations.
+	
+```{r}
+table2
+```
+
+c. A single column actually stores multiple variables. Here, `rate` is being
+used to store both the population and case count variables.
+	
+```{r}
+table3
+```
+
+The trouble is that this variable has to be stored as a character; otherwise, we
+lose access to the original population and case variable. But, this makes the
+plot useless.
+
+Notice how the y axis below is in "alphabetical order" rather than numeric order as we would intuitively expect.
+
+```{r}
+ggplot(table3, aes(x = year, y = rate)) +
+  geom_point() +
+  geom_line(aes(group = country))
+```
+
+# What If My Data Isn't Tidy?
+
+The next set of lecture notes suggests tools for addressing these three problems, but each case will be different and force you to expand your data manipulation toolkit!
+
+6. A few caveats are in order. It’s easy to become a tidy-data purist - but in the belief that tidy data is the only good data, we can lose sight of the bigger data-analytic picture. To prevent that, first, remember that what is or is not tidy (just like what is wide vs. long) is very context dependent. Maybe you want to treat each week as an observation, rather than each day. Second, know that there are sometimes computational reasons to prefer non-tidy data. For example, "long" data often require more memory, since column names that were originally stored once now have to be copied onto each row. Certain statistical models are also sometimes best framed as matrix operations on non-tidy datasets.
+
+However, in the same way that writing is a form of thinking, so is visualizing; if you're struggling to even get the foundations of a hypothetical visualization working, it may be a sign that your data isn't tidy. It's worth grappling with what you actually believe is *a single observation* of the data; sometimes it is simple, like a year, or sometimes it is complex, like a single country in a five-year period. Trying to make your dataset "tidy" will force you to contend with this notion, and hopefully illuminate the path forward.
