@@ -28,8 +28,6 @@ Interface." The `server` controls the _computation and creation_; more succinctl
 below defines a title and textbox where users can type. But it does not do
 anything, since the server is empty.
 
-*Note: To host Shiny apps within an R Markdown like this, you need to host it at some external sitelike shinyapps.io. When you submit Shiny Apps, we will just ask for screenshots or screen recordings.*
-
     ```{r code=readLines("https://raw.githubusercontent.com/krisrs1128/stat679_code/main/examples/week2/tuesday/app1.R")}
     ```
 

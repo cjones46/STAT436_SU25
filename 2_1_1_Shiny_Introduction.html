@@ -1550,25 +1550,17 @@ controls what the app <em>looks like</em>. It stands for “User
 Interface.” The <code>server</code> controls the <em>computation and
 creation</em>; more succinctly, what the app <em>does</em>. For example,
 the app below defines a title and textbox where users can type. But it
-does not do anything, since the server is empty.</p></li>
-</ol>
-<p><em>Note: To host Shiny apps within an R Markdown like this, you need
-to host it at some external sitelike shinyapps.io. When you submit Shiny
-Apps, we will just ask for screenshots or screen recordings.</em></p>
-<pre><code>```r
-library(shiny)
-
-ui &lt;- fluidPage(
-  titlePanel(&quot;Hello!&quot;),
-  textInput(&quot;name&quot;, &quot;Enter your name&quot;)  # first arg is ID, second is label
-)
-
-server &lt;- function(input, output) {}
-app &lt;- shinyApp(ui, server)
-```
-
-&lt;iframe src=&quot;https://connect.doit.wisc.edu/content/00ef879f-65b2-4179-9852-06da0bfb0238/&quot; allowfullscreen=&quot;&quot; data-external=&quot;1&quot;&gt;&lt;/iframe&gt;</code></pre>
-<ol style="list-style-type: decimal">
+does not do anything, since the server is empty.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">titlePanel</span>(<span class="st">&quot;Hello!&quot;</span>),</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">textInput</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;Enter your name&quot;</span>)  <span class="co"># first arg is ID, second is label</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {}</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>app <span class="ot">&lt;-</span> <span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
+<p><iframe src="https://connect.doit.wisc.edu/content/00ef879f-65b2-4179-9852-06da0bfb0238/" allowfullscreen data-external="1"></iframe></p></li>
 <li><p>The UI elements can be further broken down into Inputs, Outputs,
 and Descriptors<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, all grouped together by an organizing
 layout function. Inputs are UI elements that users can manipulate to
