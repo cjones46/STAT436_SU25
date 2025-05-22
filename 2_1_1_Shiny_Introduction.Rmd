@@ -42,7 +42,7 @@ the result of a `server` computation. Descriptors are parts of the page that
 aren't involved in computation, but which provide narrative structure and guide
 the user.
 
-    For example, in the toy app above, `titlePage` is a descriptor providing
+    For example, in the toy app above, `titlePanel` is a descriptor providing
     some title text. `textInput` is an input element allowing users to enter
     text. `fluidPage` is a layout function that arranges these elements on a
     continuous page (some other layout functions are `sidebarLayout`,
