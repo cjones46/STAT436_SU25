@@ -96,6 +96,8 @@ Choose a dataset you are interested in visualizing. You may choose any dataset, 
 
 [TidyTuesday](https://github.com/rfordatascience/tidytuesday#datasets), [Kaggle](https://www.kaggle.com/datasets), [Google Dataset Search](https://datasetsearch.research.google.com/), [AWS Data Registry](https://registry.opendata.aws/), [Wisconsin DNR](https://data-wi-dnr.opendata.arcgis.com/), [IPUMS Census Data](https://www.ipums.org/), [538](https://github.com/fivethirtyeight/data/)
 
+You can also run `data()` in your R console to see all of the built-in datasets in the packages that you have loaded.
+
 **With your chosen dataset, use `patchwork` to create a compound figure with at least three individual visualizations.**
 
 This compound figure should:
