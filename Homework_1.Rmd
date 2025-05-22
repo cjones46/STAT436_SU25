@@ -37,7 +37,7 @@ Instructor feedback on visual design is intended to help the student grow and cr
 
 ## NYC Flights
 
-The following questions refer to the `flights` dataset in the `nycflights13` library. The first few lines are printed below.
+This question uses `flights` dataset in the `nycflights13` library. The first few lines are printed below.
 
 ```{r}
 library(nycflights13)
