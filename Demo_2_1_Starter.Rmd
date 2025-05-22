@@ -1,0 +1,46 @@
+---
+title: "Untitled"
+output: html_document
+date: "`r Sys.Date()`"
+---
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(warnings = FALSE, message = FALSE)
+```
+
+[Interactive German Traffic] This problem will revisit the previous problem
+from an interactive point of view. We will build a visualization that helps
+users explore daily traffic patterns across multiple German cities, using
+interactivity to help users navigate the collection. We will need additional
+features related to the day of the week for each timepoint, created by the
+`wday` function below,
+
+```{r}
+library(tidyverse)
+library(lubridate)
+library(shiny)
+theme_set(theme_bw())
+
+traffic <- read_csv("https://uwmadison.box.com/shared/static/x0mp3rhhic78vufsxtgrwencchmghbdf.csv") |>
+ mutate(day_of_week = wday(date))
+```
+
+a. Design and implement a Shiny app that allows users to visualize traffic
+over time across selected subsets of cities. Make sure that it is possible
+to view data from more than one city at a time. It is not necessary to label
+the cities within the associated figure.
+
+```{r}
+
+```
+
+
+b. Introduce new inputs to allow users to select a contiguous range of days
+of the week. For example, the user should have a way of zooming into the
+samples taken within the Monday - Wednesday range.
+
+```{r}
+
+```
+
+
