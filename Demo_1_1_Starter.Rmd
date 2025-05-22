@@ -1,0 +1,36 @@
+---
+title: "Untitled"
+output: html_document
+date: "`r Sys.Date()`"
+---
+
+```{r}
+knitr::opts_chunk$set(warnings = FALSE, message = FALSE)
+```
+
+[Catalan Elections] The `Catalan_elections` dataset contains data on eleven elections in a region of Spain; in each election, the percentage of voters in each of 949 municipalities voting for "Indy" or for "Unionist" are tracked.
+
+```{r}
+library(tidyverse)
+library(ggridges)
+library(ggbeeswarm)
+Catalan_elections
+```
+
+a. Use a geom from `ggplot2` to visualize: In each of the 11 elections in the dataset, what was the distribution of % voters for Indy in each municipality?
+
+```{r}
+
+```
+
+b. Use either `geom_density_ridges` from `ggridges` or `geom_beeswarm` from `ggbeeswarm` to answer the same question.
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+c. Why did you choose the `geom` you did in part b? How does it improve on the plot from part a?
