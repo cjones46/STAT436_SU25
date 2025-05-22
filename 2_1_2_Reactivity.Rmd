@@ -78,14 +78,70 @@ used a reactive expression to generate the samples, so that both the histogram
 and hypothesis test result outputs can refer to the same intermediate simulated
 data.
 
-    ```{r code=readLines("https://raw.githubusercontent.com/krisrs1128/stat679_code/main/examples/week2/2-1/app3.R")}
-    ```
+```{r}
+library(shiny)
+library(tidyverse)
+library(broom)
 
-    <iframe src="https://connect.doit.wisc.edu/content/dc907aa5-090e-410e-8f9f-6bdb19befc75/" allowfullscreen="" data-external="1" height=935 width=600></iframe>
+### Functions within app components
+generate_data <- function(n, mean1, mean2, sigma) {
+  data.frame(
+    values = c(rnorm(n, mean1, sigma), rnorm(n, mean2, sigma)),
+    group = rep(c("A", "B"), each = n)
+  )
+}
 
-    Other than that, the only difference is that I've saved output from the
-    `t.test` using `test_result`. Notice the use of the `broom` package, which
-    helps format the test output into a `data.frame`.
+histogram_fun <- function(df) {
+  ggplot(df) +
+    geom_histogram(
+      aes(values, fill = group), 
+      bins = 100, position = "identity",
+      alpha = 0.8
+    ) +
+    xlim(-10, 10)
+}
+
+test_fun <- function(df) {
+  t.test(values ~ group, data = df) %>%
+    tidy() %>%
+    select(p.value, conf.low, conf.high)
+}
+
+### Defines the app
+ui <- fluidPage(
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput("mean1", "Mean (Group 1)", 0, min = -10.0, max = 10.0, step = 0.1),
+      sliderInput("mean2", "Mean (Group 2)", 0, min = -10, max = 10, step = 0.1),
+      sliderInput("sigma", "Enter the standard deviation", 1, min=.1, max=5),
+      sliderInput("n", "Enter the number of samples", 500, min=1, max=2000),
+    ),
+    mainPanel(
+      plotOutput("histogram"),
+      dataTableOutput("test_result")
+    )
+  )
+)
+
+server <- function(input, output) {
+  samples <- reactive({
+    generate_data(input$n, input$mean1, input$mean2, input$sigma)
+  })
+  # Notice how below we don't call generate_data() twice, but samples().
+  # The value of samples() is updated whenever n, mean1, mean2, or sigma are changed, and that value is just passed on rather than re-calculated any time samples() is called. To be clear, samples() does NOT recalculate the value, it merely accesses the single existing value.
+  output$histogram <- renderPlot(histogram_fun(samples()))
+  output$test_result <- renderDataTable(test_fun(samples()))
+}
+
+app <- shinyApp(ui, server)
+
+```
+
+<iframe src="https://connect.doit.wisc.edu/content/dc907aa5-090e-410e-8f9f-6bdb19befc75/" allowfullscreen="" data-external="1" height=935 width=600></iframe>
+
+Other than that, the only difference is that I've saved output from the
+`t.test` using `test_result`. Notice the use of the `broom` package, which
+helps format the test output into a `data.frame`.
 
 1. So far, all of our reactive code has lived within the `render*` or
 `reactive()` sets of functions. However, there is a another kind that is often

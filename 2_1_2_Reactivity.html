@@ -1633,7 +1633,9 @@ complex app. The app below can be used for power analysis. It simulates
 two groups of samples, both from normal distributions, but with
 different (user specified) means. We’ve used a reactive expression to
 generate the samples, so that both the histogram and hypothesis test
-result outputs can refer to the same intermediate simulated data.</p>
+result outputs can refer to the same intermediate simulated
+data.</p></li>
+</ol>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
@@ -1682,16 +1684,20 @@ result outputs can refer to the same intermediate simulated data.</p>
 <span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>  samples <span class="ot">&lt;-</span> <span class="fu">reactive</span>({</span>
 <span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>    <span class="fu">generate_data</span>(input<span class="sc">$</span>n, input<span class="sc">$</span>mean1, input<span class="sc">$</span>mean2, input<span class="sc">$</span>sigma)</span>
 <span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>histogram <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>(<span class="fu">histogram_fun</span>(<span class="fu">generate_data</span>(input<span class="sc">$</span>n, input<span class="sc">$</span>mean1, input<span class="sc">$</span>mean2, input<span class="sc">$</span>sigma)))</span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>test_result <span class="ot">&lt;-</span> <span class="fu">renderDataTable</span>(<span class="fu">test_fun</span>(<span class="fu">generate_data</span>(input<span class="sc">$</span>n, input<span class="sc">$</span>mean1, input<span class="sc">$</span>mean2, input<span class="sc">$</span>sigma)))</span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>app <span class="ot">&lt;-</span> <span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
-<p><iframe src="https://connect.doit.wisc.edu/content/dc907aa5-090e-410e-8f9f-6bdb19befc75/" allowfullscreen data-external="1" height="935" width="600"></iframe></p>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Notice how below we don&#39;t call generate_data() twice, but samples().</span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>  <span class="co"># The value of samples() is updated whenever n, mean1, mean2, or sigma are changed, and that value is just passed on rather than re-calculated any time samples() is called. To be clear, samples() does NOT recalculate the value, it merely accesses the single existing value.</span></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>histogram <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>(<span class="fu">histogram_fun</span>(<span class="fu">samples</span>()))</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>test_result <span class="ot">&lt;-</span> <span class="fu">renderDataTable</span>(<span class="fu">test_fun</span>(<span class="fu">samples</span>()))</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>app <span class="ot">&lt;-</span> <span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
+<iframe src="https://connect.doit.wisc.edu/content/dc907aa5-090e-410e-8f9f-6bdb19befc75/" allowfullscreen data-external="1" height="935" width="600">
+</iframe>
 <p>Other than that, the only difference is that I’ve saved output from
 the <code>t.test</code> using <code>test_result</code>. Notice the use
 of the <code>broom</code> package, which helps format the test output
-into a <code>data.frame</code>.</p></li>
+into a <code>data.frame</code>.</p>
+<ol style="list-style-type: decimal">
 <li><p>So far, all of our reactive code has lived within the
 <code>render*</code> or <code>reactive()</code> sets of functions.
 However, there is a another kind that is often useful, especially in
