@@ -48,12 +48,12 @@ flights %>%
 
 Consider "flight speed" to be `distance/air_time`.
 
-**Create one single visualization that simultaneously answers both questions:** 
+**a) Create one single visualization that simultaneously answers both questions:** 
 
 - What is a typical flight speed for each `carrier` ?
 - What is the overall distribution of flight speeds for each `carrier`?
 
-**Explain exactly how a viewer can answer both questions using your visualization, using specific examples and references to visual elements.**
+**b) Explain exactly how a viewer can answer both questions using your visualization, using specific examples and references to visual elements.**
 
 ## Pokemon
 
