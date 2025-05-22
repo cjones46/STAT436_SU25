@@ -1,0 +1,158 @@
+---
+title: "Homework 2"
+author: Kris Sankaran, adapted by Cameron Jones
+date: Summer 2025
+  
+output: rmdformats::robobook
+---
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, eval = FALSE)
+```
+
+# Instructions
+
+Answer the following pre-written problems AND portfolio visualization prompt in a single R Markdown file. Knit that file into an .html file and **submit both the R Markdown file and .html file!** 
+
+If you fail to submit either the R Markdown file or .html file, your assignment may be subject to penalties. **Please also see "How To Submit A Shiny App" below.**
+
+A reminder that generative AI and assistance from classmates are allowed in certain capacities on certain problems. That is, on pre-written problems, you may only have *conversations* with classmates about the concepts they test, and not consult their code or any generative AI at all. On portfolio visualizations, you may learn from classmates' code and apply it to your own distinct portfolio visualization, and you may consult generative AI.
+
+## How To Submit A Shiny App
+
+The final product of the first two pre-written problems and portfolio visualization in this assignment are Shiny apps. Standard knitting of an .Rmd into an .html file does not support Shiny Apps; however, we still need evidence that you created a working Shiny app.
+
+You have three options for this, you may pick whichever you want for whichever problems you want:
+
+1) Submit screenshots of the Shiny App working that displays the reactivity. 
+2) Submit a screen recording of the Shiny App working that displays the reactivity.
+3) Host your app for free on [shinyapps.io](https://www.shinyapps.io/) and provide us a link. (This is a great option if you want to show off your work to other people outside this class!)
+
+# Grading
+
+Each problem will be graded on the following criteria where relevant:
+
+- **Attention to detail in visual design.** Your design choices should go above and beyond defaults, and show critical thinking towards aiding the viewer in understanding the takeaway(s) of the visualization. Strive to make your graphs as polished as possible; especially with choices such as labels, sizes, themes, and colors. 
+
+Instructor feedback on visual design is intended to help the student grow and critically consider visual choices. In particular, plots that show bare minimum effort, or make visual choices that actively hinder the viewer, will be docked points. To receive full credit on visual design, students should "go above and beyond defaults and show critical thinking towards aiding the viewer..." You are encouraged to tinker with subtle visualization elements like themes and layouts, and to explore how to make these changes on your own.
+
+- **Code style.** The code you use to implement your visualizations should be readable and well-organized. Reproducibility is extremely important in the field of data visualization, and messy code is a barrier to it. This also encourages you to organize your code well, which is extremely helpful for the iterative visualization creation process. 
+
+- **Thoughtful explanations, interpretations, and justification.** Writing should be thorough without being overly wordy or jargon-heavy. Writing should draw organically from one's own experiences, opinions, or relevant sources.
+
+- Finally, the **.html file should be well-organized and formatted overall**. Please take care to ensure that in your knitted .html file, we can clearly identify where each problem starts and ends, and things like R warnings and messages are hidden. For example, creating headings for problems titles like "# Heading" is helpful. 
+
+# Pre-Written Problems
+
+## Olympics
+
+The code below sets up a Shiny app for interactively visualizing athlete weight and heights in the 2012 London Olympics. We would like to have an interactive scatterplot of `Weight` vs `Height, cm` that emphasizes certain athletes (makes them larger & darker) depending on which `Sport`s have been selected by a dropdown menu. Code for generating the scatterplot is provided in the function `scatterplot`.
+
+```{r, eval = FALSE}
+olympics <- read_csv("https://uwmadison.box.com/shared/static/rzw8h2x6dp5693gdbpgxaf2koqijo12l.csv")
+
+# Scatterplot with highlighted points
+#
+# Assumes that the input dataframe has a column called "selected", with TRUE and FALSE values indicating which points should be emphasized
+
+scatterplot <- function(df) {
+  ggplot(df) +
+  geom_point(
+    aes(Weight, `Height, cm`, alpha = as.numeric(selected), size = as.numeric(selected))
+  ) +
+  scale_alpha(range = c(0.05, .8)) +
+  scale_size(range = c(0.1, 1))
+}
+
+ui <- fluidPage(
+  selectInput("sports", "Select a Sport", choices = unique(olympics$Sport), multiple = TRUE),
+  plotOutput("scatterplot")
+)
+
+server <- function(input, output) {
+  # Fill this in!
+} 
+
+shinyApp(ui, server)
+```
+
+**a)** Fill in the code above to display a scatterplot which emphasizes the athletes whose `Sport`s are selected in the dropdown menu. *(Grading note: You only need to get this functioning, you do not need to make improvements to the visual choices.)*
+
+*Hint: At a minimum, you'll need `output$scatterplot = renderPlot({ ... something with scatterplot() ...})`*
+
+**b)** Below the scatterplot, display a table of the selected athletes. Use a `reactive` to minimize code duplication across the scatterplot and table.  *(Grading note: You only need to get this functioning, you do not need to make improvements to the visual choices.)*
+
+**Submission instructions:** While this problem is split into parts a) and b), you can just show us evidence that you have both a) and b) working with one series of screenshots/one screen recording/one shinyapps.io link.
+
+## NYC Rentals
+
+The code below sets up a Shiny App to visualize a dataset on New York City AirBnB rental prices.
+
+```{r}
+rentals <- read_csv("https://uwmadison.box.com/shared/static/zi72ugnpku714rbqo2og9tv2yib5xped.csv") %>% 
+  select(id, room_type, price, latitude, longitude) %>% 
+  mutate(log_price = log(price, 10))
+
+# Different than the olympics scatterplot function - this one does not emphasize/de-emphasize points based on "selected", it will just plot whatever you give it; the filtering should take place before the dataframe gets here
+scatterplot <- function(df) {
+  ggplot(df) +
+    geom_point(aes(longitude, latitude, col = room_type)) +
+    scale_color_brewer(palette = "Set2") +
+    coord_fixed()
+}
+
+ui <- fluidPage(
+  selectInput("room_type", "Room Type", choices = unique(rentals$room_type), multiple = TRUE),
+  plotOutput("scatterplot"),
+  dataTableOutput("table")
+)
+
+server <- function(input, output) {
+  current_data <- reactive({
+    rentals |>
+      filter(
+        room_type %in% input$room_type
+      )
+  })
+  output$scatterplot <- renderPlot(scatterplot(current_data()))
+  output$table <- renderDataTable(current_data())
+}
+```
+
+**Edit this Shiny app so that the user may define a price range, and only rentals within that price range show up in the scatterplot AND table.**
+
+*Grading note: You only need to get this functioning, you do not need to make improvements to the visual choices.*
+
+## Discussion: Better Life Index
+
+This "Think Tank"-like problem asks you to consider the pros and cons of an existing interactive visualization: the main "flower plot" at: https://www.oecdbetterlifeindex.org/#/11111111111.
+
+**a)** Before reading the questions below, take some time to play around with the visualization. See if you can find all of the ways to interact with the graph. You do not need to write anything for this part of the question.
+
+**b)** This visualization is extremely ambitious; there are at least a dozen variables that are encoded in some way. With that in mind, What is the main guiding purpose the author wants the viewer to be able to investigate through interacting with it? What specific visual choices make you think that is their aim?
+
+**c)** One interactive option the graph offers is the ability to sort the countries alphabetically versus by rank. The viewer can do so by clicking on the text itself. While the option to switch is a definitive positive, let's focus on the *way* the user toggles between them; by clicking on the text "alphabetically | by rank" itself. Do you think this was an effective, intuitive choice of how to allow this switching? Did you understand it quickly when you were playing with the visualization? If not, what is a more obvious way to present this option to the viewer?
+
+**d)** Similar to this week's Think Tank, notice that there are very few numbers or numeric gridlines anywhere in this visualization. Numbers that are present are very de-emphasized. In relation to the purpose of the visualization you identified in b), why do you think the author made this choice?
+
+# Portfolio Visualization
+
+Choose a dataset you are interested in visualizing. You may choose any dataset, including those from your personal studies/outside knowledge, or pick one from these suggested collections:
+
+[TidyTuesday](https://github.com/rfordatascience/tidytuesday#datasets), [Kaggle](https://www.kaggle.com/datasets), [Google Dataset Search](https://datasetsearch.research.google.com/), [AWS Data Registry](https://registry.opendata.aws/), [Wisconsin DNR](https://data-wi-dnr.opendata.arcgis.com/), [IPUMS Census Data](https://www.ipums.org/), [538](https://github.com/fivethirtyeight/data/)
+
+You can also run `data()` in your R console to see all of the built-in datasets in the packages that you have loaded.
+
+**With your chosen dataset, create a Shiny app that supports at least two interactive elements.**
+
+This Shiny app should:
+
+- Have a single overall guiding question or purpose that entices the user to explore, rather than just using two (or more) unrelated, uninteresting reactive components
+- Have concise but effective text on the app itself that guides the user on how to use the app
+- Show careful consideration and effort into the visual choices as defined in the Grading section at the top. This always applies by default, but I thought you could use a reminder since the first three problems didn't ask you to improve any visual choices.
+
+Remember, the goal of the portfolio visualizations is to create something you would be proud to show someone outside of this class - potentially a recruiter or interviewer!
+
+**What is the reactivity graph for your app?** Recall that a reactivity graph is a drawing of the inputs, reactives, outputs, and connective edges as defined in [2.1.2: Reactivity](https://cjones46.github.io/STAT436_SU25/2_1_2_Reactivity.html). Drawings are best, but we will also accept text descriptions that specifically classify every input, reactive, output, and edge.
+
+**Explain a context-specific conclusion that a viewer could arrive at from your visualization(s) that is only possible by using your interactive element(s).**
