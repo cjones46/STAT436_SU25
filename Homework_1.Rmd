@@ -1,0 +1,109 @@
+---
+title: "Homework 1"
+author: Kris Sankaran, adapted by Cameron Jones
+date: Summer 2025
+  
+output: rmdformats::robobook
+---
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+library(tidyverse)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+# Instructions
+
+Answer the following pre-written problems AND portfolio visualization prompt in a single R Markdown file. Knit that file into an .html file and **submit both the R Markdown file and .html file!**
+
+If you fail to submit either the R Markdown file or .html file, your assignment may be subject to penalties.
+
+A reminder that generative AI and assistance from classmates are allowed in certain capacities on certain problems. That is, on pre-written problems, you may only have *conversations* with classmates about the concepts they test, and not consult their code or any generative AI at all. On portfolio visualizations, you may learn from classmates' code and apply it to your own distinct portfolio visualization, and you may consult generative AI.
+
+# Grading
+
+Each problem will be graded on the following criteria where relevant:
+
+- **Attention to detail in visual design.** Your design choices should go above and beyond defaults, and show critical thinking towards aiding the viewer in understanding the takeaway(s) of the visualization. Strive to make your graphs as polished as possible; especially with choices such as labels, sizes, themes, and colors. 
+
+Instructor feedback on visual design is intended to help the student grow and critically consider visual choices. In particular, plots that show bare minimum effort, or make visual choices that actively hinder the viewer, will be docked points. To receive full credit on visual design, students should "go above and beyond defaults and show critical thinking towards aiding the viewer..." You are encouraged to tinker with subtle visualization elements like themes and layouts, and to explore how to make these changes on your own.
+
+- **Code style.** The code you use to implement your visualizations should be readable and well-organized. Reproducibility is extremely important in the field of data visualization, and messy code is a barrier to it. This also encourages you to organize your code well, which is extremely helpful for the iterative visualization creation process. 
+
+- **Thoughtful explanations, interpretations, and justification.** Writing should be thorough without being overly wordy or jargon-heavy. Writing should draw organically from one's own experiences, opinions, or relevant sources.
+
+- Finally, the **.html file should be well-organized and formatted overall**. Please take care to ensure that in your knitted .html file, we can clearly identify where each problem starts and ends, and things like R warnings and messages are hidden. For example, creating headings for problems titles like "# NYC Flights" is helpful. Last but not least... **make sure your code and visualizations are visible in your .html file BEFORE you submit!** If we can't see it, we can't grade it!
+
+# Pre-Written Problems
+
+## NYC Flights
+
+The following questions refer to the `flights` dataset in the `nycflights13` library. The first few lines are printed below.
+
+```{r}
+library(nycflights13)
+flights %>% 
+  select(carrier, air_time, distance) %>% 
+  head(n = 5)
+```
+
+Consider "flight speed" to be `distance/air_time`.
+
+**Create one single visualization that simultaneously answers both questions:** 
+
+- What is a typical flight speed for each `carrier` ?
+- What is the overall distribution of flight speeds for each `carrier`?
+
+**Explain exactly how a viewer can answer both questions using your visualization, using specific examples and references to visual elements.**
+
+## Pokemon
+
+The data below give attack and defense statistics for Pokemon, along with their types. In this problem, we will build a visualization to answer the question: how do the different types of Pokemon vary in their attack and defense?
+
+```{r}
+pokemon <- read_csv("https://uwmadison.box.com/shared/static/hf5cmx3ew3ch0v6t0c2x56838er1lt2c.csv")
+pokemon %>% 
+  select(Name, type_1, Attack, Defense) %>% 
+  head(n = 5)
+```
+
+**a) Derive a new column containing the attack-to-defense ratio for each Pokemon, defined as `Attack/Defense`.**
+
+**b) For each `type_1` group of Pokemon, compute the median attack-to-defense ratio.**
+
+**c) Plot the attack vs. defense scores for each Pokemon, faceted by `type_1`. Use the result of (b) to ensure that the facet panels are sorted in order of highest to lowest median attack-to-defense ratio. Include a 45 degree diagonal line in each facet with `geom_abline()` that helps illustrate whether each Pokemon has a higher attack or defense.** 
+
+## Penguins
+
+The data below measures properties of various Antarctic penguins.
+
+```{r}
+penguins <- read_csv("https://uwmadison.box.com/shared/static/ijh7iipc9ect1jf0z8qa2n3j7dgem1gh.csv")
+penguins %>% 
+  select(species, island, bill_length_mm, bill_depth_mm) %>% 
+  head(n = 5)
+```
+
+**a) Create one single visualization that simultaneously answers both questions:**
+
+- How is bill length related to bill_depth within and across species?
+- On which island(s) do each species live?
+
+**b) Read about [Simpson's Paradox](https://en.wikipedia.org/wiki/Simpson%27s_paradox) and explain how your visualization for part a) is an example of this.**
+
+# Portfolio Visualization
+
+Choose a dataset you are interested in visualizing. You may choose any dataset, including those from your personal studies/outside knowledge, or pick one from these suggested collections:
+
+[TidyTuesday](https://github.com/rfordatascience/tidytuesday#datasets), [Kaggle](https://www.kaggle.com/datasets), [Google Dataset Search](https://datasetsearch.research.google.com/), [AWS Data Registry](https://registry.opendata.aws/), [Wisconsin DNR](https://data-wi-dnr.opendata.arcgis.com/), [IPUMS Census Data](https://www.ipums.org/), [538](https://github.com/fivethirtyeight/data/)
+
+**With your chosen dataset, use `patchwork` to create a compound figure with at least three individual visualizations.**
+
+This compound figure should:
+
+- Have a single overall guiding question or purpose, rather than just being three (or more) distinct, unconnected visualizations one can conveniently make with a given dataset
+- Use consistent encodings and collected legends where appropriate
+- Have subtle but visible annotation that would allow you to quickly reference the individual visualizations
+
+Remember, the goal of the portfolio visualizations is to create something you would be proud to show someone outside of this class - potentially a recruiter or interviewer!
+
+**Explain your compound figure's overall guiding question or purpose. In relation to that, why did you lay out the panels the way that you did?**
