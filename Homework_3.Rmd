@@ -1,0 +1,81 @@
+---
+title: "Homework 3"
+author: Kris Sankaran, adapted by Cameron Jones
+date: Summer 2025
+  
+output: rmdformats::robobook
+---
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, eval = FALSE)
+```
+
+# Logistics
+
+This homework consists of a Shiny portfolio visualization and an associated written report ("write-up").
+
+## Submission Instructions
+
+Please submit **THREE** things for this assignment:
+
+For your write-up, please upload **a separate, well-formatted PDF or Word or other text document.** Do not include your write-up in your R code file!
+
+For your Shiny app itself, please submit two things:
+
+- **Your .Rmd or .R file(s).** 
+
+- **Evidence of your Shiny app's functionality**. For this requirement, you should submit one of the following things: a series of screenshots of your app working, a screen recording of your app working, or a public link to your app on [shinyapps.io](https://www.shinyapps.io/). (shinyapps.io is a great option if you want to show off your work to other people outside this class!)
+
+You do **not need to submit any data files**, such as .csv files.
+
+## Grading
+
+#### Shiny App [30 points]
+
+**Design Choices [20 points]**: The visual interface should support meaningful interactive queries and be intuitive to use, which may involve appropriate annotation. Your design choices should go above and beyond defaults, and show critical thinking as well as attention to detail towards aiding the viewer in understanding the takeaway(s) of the visualization. Strive to make your graphs as polished as possible; especially with choices such as layout, labels, sizes, themes, and colors. Though it may build from course examples, the submission demonstrates independent and creative thinking.
+
+**Code Useability [5 points]**: Techniques to improve the conciseness and readability of code are used, such as using reactive expressions to avoid unnecessary duplication, and extracting graphing or other helper functions outside of render* commands.
+
+**Problem Formulation [5 points]**: The context of the visualization is appropriately communicated, and all data are reported within context, rather than assuming prior familiarity with specific variable names or data collection methods, for example. (*You can still use field-specific terminology if your intended audience would know what it means, but any such terms should be explained in your write-up.*) The problem or question the visualization investigates should not have an obvious answer, and the visualization could have an audience beyond the course. 
+
+#### Write-up [20 points]
+
+**Discussion Quality [15 points]**: The write-up is thorough with respect to each prompt but not overly wordy and avoids technical jargon. Writing demonstrates critical thinking about the author's own workflows, decisions, and what information needs to be communicated to the viewer.
+
+**Discussion Formatting [5 points]**: The write-up uses correct and engaging grammar (e.g. varied sentence length), and uses paragraphs/headers/other formatting to appropriately organize the text.
+
+
+# Portfolio Visualization
+
+Choose a dataset you are interested in visualizing. You may choose any dataset, including those from your personal studies/outside knowledge, or pick one from these suggested collections:
+
+[TidyTuesday](https://github.com/rfordatascience/tidytuesday#datasets), [Kaggle](https://www.kaggle.com/datasets), [Google Dataset Search](https://datasetsearch.research.google.com/), [AWS Data Registry](https://registry.opendata.aws/), [Wisconsin DNR](https://data-wi-dnr.opendata.arcgis.com/), [IPUMS Census Data](https://www.ipums.org/), [538](https://github.com/fivethirtyeight/data/)
+
+You can also run `data()` in your R console to see all of the built-in datasets in the packages that you have loaded.
+
+You may choose to start from your HW2 portfolio visualization or use a different dataset entirely.
+
+**With your chosen dataset, create a Shiny app with at least two visualizations, at least one cursor event (hovering/clicking/brushing), and at least one other reactive feature.**
+
+*Please note that because there are no pre-written problems on this homework, your Shiny app will be graded on a more detailed set of criteria than your portfolio visualization in HW2, described above.*
+
+# Write-up
+
+**Write-ups have a word maximum of 750 words.** 
+
+Write-ups should be aimed at someone with **no knowledge or interest in coding** (e.g. do not mention specific functions), but who is interested in understanding your visualization and how you developed it.
+
+Please address the following prompts in your write-up:
+
+* Provide a short description of the dataset, including:
+  *   Where you found it (Please include a link and the author's/organization's name)
+  *   A high-level mention of any important transformations you made to the dataset before visualizing
+  *   What a single row of the (potentially transformed) dataset represents in real terms
+  *   Any relevant criteria for being included/excluded from this dataset (e.g. does it cover certain years, certain cities, etc?)
+  *   A brief explanation of any variables relevant to understanding the visualization; including units and brief background information where necessary. You do not need to cite specific variable names.
+  
+* The bulk of your write-up should answer these prompts about the design process:
+  *   What is the main question your app investigates, and who is its intended audience?
+  *   Why did you choose the specific interactive elements you did?
+  *   What guided the style customizations and interface layout you used?
+  *   Provide at least one example of how using an interactive element in your app enables a specific, unexpected finding in the data.
