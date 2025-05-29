@@ -215,7 +215,7 @@ corresponding only to the first 500 movies in the dataset.
 The `bar_plot` function draws two bar plots over one another, one referring to a
 global `counts` object of unchanging histogram bar heights. The second refers to
 the bar heights for the continually updated overlays. Notice that we use
-`.data[[v]]` to use variable names encoded in strings; this is a more advanced technique that we will not test you on. The `plot_overlay`
+`.data[[v]]` to use variable names encoded in strings. The `plot_overlay`
 function provides the histogram bar heights for variable `v` after brushing over
 the flights in `selected_`.
     
