@@ -137,7 +137,15 @@ tm_shape(world_asia, bbox = bbox) +
   tm_polygons()
 ```
 
-9. Even in this more complex setup, where we work with background images and
+9. While these approaches were developed especially for vector data, there is a more universal approach available to you as well. If your geometric dataframe inherits the `sf` class (which it likely does), you can use `geom_sf()`, which detects the geometry column automatically and allows us to use our familiar ggplot aesthetic tricks.
+
+```{r}
+ggplot(world_asia) +
+  geom_sf(aes(fill = lifeExp))
+```
+
+
+10. Even in the more complex setup, where we work with background images and
 vector data rather than standard data.frames, we can still apply the kinds of
 visual encoding ideas that we are familiar with. For example, we can still color
 code or facet by fields in the vector dataset. To illustrate, we revisit the bus

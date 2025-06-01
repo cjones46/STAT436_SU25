@@ -37,8 +37,7 @@ these geometric features.
 
 3. Vector data are usually stored in `.geojson`, `.wkt`, `.shp`, or `.topojson`
 formats. Standard data.frames cannot be used because then important spatial
-metadata would be lost, like the Coordinate Reference System (to be explained in
-the fourth lecture this week).
+metadata would be lost, like the Coordinate Reference System.
 
 4. In R, these formats can be read using `read_sf` in the `sf` package. They can
 be written using the `write_sf` function. Here, we'll read in a vector dataset
