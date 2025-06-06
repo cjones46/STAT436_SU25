@@ -73,6 +73,7 @@ E <- data.frame(
 )
 
 G <- tbl_graph(edges = E)
+# By default, G assumes these edges have direction; this can be adjusted by tbl_graph(edges = E, directed = FALSE)
 G
 ```
 
