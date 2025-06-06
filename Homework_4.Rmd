@@ -1,0 +1,100 @@
+---
+title: "Homework 4"
+author: Kris Sankaran, adapted by Cameron Jones
+date: Summer 2025
+  
+output: rmdformats::robobook
+---
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, eval = FALSE)
+```
+
+# Instructions
+
+Answer the following pre-written problems in a single R Markdown file. There is no portfolio visualization for this assignment. Knit that file into an .html file and **submit both the R Markdown file and .html file!**
+
+If you fail to submit either the R Markdown file or .html file, your assignment may be subject to penalties. 
+
+A reminder that generative AI and assistance from classmates are allowed in certain capacities on certain problems. That is, on pre-written problems, you may only have *conversations* with classmates about the concepts they test, and not consult their code or any generative AI at all. On portfolio visualizations, you may learn from classmates' code and apply it to your own distinct portfolio visualization, and you may consult generative AI.
+
+# Grading
+
+Each problem will be graded on the following criteria where relevant:
+
+- **Attention to detail in visual design.** Your design choices should go above and beyond defaults, and show critical thinking towards aiding the viewer in understanding the takeaway(s) of the visualization. Strive to make your graphs as polished as possible; especially with choices such as labels, sizes, themes, and colors. 
+
+Instructor feedback on visual design is intended to help the student grow and critically consider visual choices. In particular, plots that show bare minimum effort, or make visual choices that actively hinder the viewer, will be docked points. To receive full credit on visual design, students should "go above and beyond defaults and show critical thinking towards aiding the viewer..." You are encouraged to tinker with subtle visualization elements like themes and layouts, and to explore how to make these changes on your own.
+
+- **Code style.** The code you use to implement your visualizations should be readable and well-organized. Reproducibility is extremely important in the field of data visualization, and messy code is a barrier to it. This also encourages you to organize your code well, which is extremely helpful for the iterative visualization creation process. 
+
+- **Thoughtful explanations, interpretations, and justification.** Writing should be thorough without being overly wordy or jargon-heavy. Writing should draw organically from one's own experiences, opinions, or relevant sources.
+
+- Finally, the **.html file should be well-organized and formatted overall**. Please take care to ensure that in your knitted .html file, we can clearly identify where each problem starts and ends, and things like R warnings and messages are hidden. For example, creating headings for problems titles like "# Heading" is helpful. 
+
+# Pre-Written Problems
+
+## HIV Network
+
+The code below reads in nodes and edges for a graph describing the similarity of 512 HIV samples collected across 32 countries. Two samples are linked if they have similar genetic sequences.
+
+```{r, echo = TRUE}
+library(tidygraph)
+nodes <- read_csv("https://github.com/krisrs1128/stat436_s25/raw/refs/heads/main/data/hiv_nodes.csv")
+edges <- read_csv("https://github.com/krisrs1128/stat436_s25/raw/refs/heads/main/data/hiv_edges.csv")
+G <- tbl_graph(nodes, edges)
+G
+```
+
+*(Grading note: You only need to get the visualizations for this problem functioning, you do not need to make improvements to the visual choices.)*
+
+**a.** Create a basic node-link diagram of this dataset.  Then, comment on what the node-link diagram tells you about the overall structure of the network, and what you would expect the adjacency matrix to look like.
+
+**b.** Visualize the adjacency matrix for this dataset. Comment on how prominent features or patterns of the adjacency matrix show up in the node link diagram and vice versa.
+
+## UK Energy Flow
+
+We will visualize how energy is produced and consumed in the
+United Kingdom, using a [dataset](https://github.com/krisrs1128/stat436_s24/raw/main/data/energy.csv) from the UK's Department of Energy and Climate
+Change. Nodes and edges are used to classify types of activity that produce or
+consume energy. For example, the edge
+
+    ```
+    Wind    Electricity grid    289 
+    ```
+
+means that 289 KwH produced by wind power were sent to the country's electricity grid.
+
+*(Grading note: Your improvements to the visual design will be assessed for this problem as described in "Grading".)*
+    
+**a.** Build a `tbl_graph` from the provided edges.
+
+**b.** Use `ggraph` to visualize the flow of energy across nodes in this network. 
+
+Use one of the following layout options:
+
+- `"star"`
+- `"circle"`
+- `"sphere"`
+
+**c.** Choose one of the layouts (star, circle, sphere) you did **not** use in part B. Suggest a real life context whose hypothetical data would be visualized well by that layout, and explain why you think that.
+
+*(You do not actually have to find an existing dataset, but your suggestion should reference some real life context like "a hierarchy of corporate positions at a company".)*
+
+## Movie Genres
+
+How do movie genres relate to one another? Is romance + comedy a more common combination than fantasy + adventure? We will use the dataset [here](https://github.com/krisrs1128/stat436_s24/raw/main/data/movie_links.csv) to answer these questions, using a node-link diagram.
+
+*(Grading note: Your improvements to the visual design will be assessed for this problem as described in "Grading".)*
+
+**a.** Build a `tbl_graph` from the provided dataset.
+    
+**b.** Create a node-link diagram to represent the connections between movies and
+    their genres.
+    
+**c.** A list of all the genres in this network is available
+    [here](https://github.com/krisrs1128/stat992_f23/blob/main/activities/week9/genres.csv).
+    Implement a way to visually distinguish between genres and movies. *Hint: Mutate the nodes in the `tbl_graph`.*
+
+
+
