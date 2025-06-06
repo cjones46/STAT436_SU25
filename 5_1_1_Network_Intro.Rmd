@@ -87,7 +87,7 @@ ggraph(G, layout = "kk") +
 The `layout = "kk"` argument is just one of many options that will change the arrangement of the points on your graph (but not the actual structure the network itself); see more information about layouts [here](https://ggraph.data-imaginist.com/articles/Layouts.html). Here's an alternative layout for the same network:
 
 ```{r}
-ggraph(G, layout = "fr") + 
+ggraph(G, layout = "eigen") + 
   geom_edge_link() +
   geom_node_point()
 ```
@@ -100,22 +100,31 @@ ggraph(G, layout = 'kk') +
   geom_node_point()
 ```
 
-6. We can mutate node and edge attributes using dplyr-like syntax. Before
-mutating edges, it's necessary to call `activate(edges)`.
+This function might seem silly in this layout, but in the `linear` layout it makes a lot more sense:
+
+```{r}
+ggraph(G, layout = 'linear') + 
+  geom_edge_arc() +
+  geom_node_point()
+```
+
+6. We can mutate node and edge attributes using dplyr-like syntax. By default, you'll be editing the nodes of the graph; you can switch over to activating the edges with `activate(edges)`.
 
 ```{r}
 G <- G %>%
+  # Give each node an ID and a group
   mutate(
     id = row_number(),
     group = id < 4
   ) %>%
+  # Switch over to the edges, give each one a width
   activate(edges) %>%
   mutate(width = runif(n()))
 G
 ```
 
 Now we can visualize these derived attributes using an aesthetic mapping within
-the `geom_edge_link` and `geom_node_point` geoms.
+the `geom_edge_link` and `geom_node_label` geoms.
 
 ```{r, fig.cap = "The same network as above, but with edge size encoding the weight attribute."}
 ggraph(G, layout = "kk") +
