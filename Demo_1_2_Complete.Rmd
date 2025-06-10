@@ -43,11 +43,11 @@ growth of the plants over time according to different treatments.
 
 ```{r}
 ggplot(plants_reshaped) +
-  geom_line(aes(day, value, group = plantid)) +
+  geom_line(aes(as.numeric(day), value, group = plantid)) +
   facet_wrap(~ treatment)
 ```
 
 ```{r}
 ggplot(plants_reshaped) +
-  geom_line(aes(day, value, group = interaction(plantid, treatment), col = treatment))
+  geom_line(aes(as.numeric(day), value, group = interaction(plantid, treatment), col = treatment))
 ```
