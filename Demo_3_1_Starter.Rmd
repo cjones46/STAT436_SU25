@@ -42,11 +42,7 @@ bird_summaries <- birds |>
     arrange(-Ellipticity_MEAN)
 ```
 
-a. Create a scatterplot of `Asymmetry` vs. `Ellipticity` which supports
-brushing. Specifically, whenever the user brushes over a set of points in the
-scatterplot, they should be shown a table of the selected species. Also,
-change the color of the currently brushed points, so that they stand out more
-clearly.
+a. Create a scatterplot of `Asymmetry` vs. `Ellipticity` which supports brushing. Specifically, whenever the user brushes over a set of points in the scatterplot, they should be shown a table of the selected species. Also, change the color of the currently brushed points, so that they stand out more clearly.
 
 ```{r}
 scatter <- function(df, selected) {
@@ -60,11 +56,16 @@ scatter <- function(df, selected) {
 
 ui <- fluidPage(
   titlePanel("Birds Brushed Scatterplot"),
+  plotOutput("plot", brush = "craig"),
+  DTOutput("table")
 )
 
 server <- function(input, output) {
-    # selected <- ???
-     # observeEvent( ???
+  selected = reactiveVal({
+    rep(TRUE, nrow(birds))
+  })
+  observeEvent(input$craig,
+               selected(birds, brushedPoints(brush = input$craig, allRows = TRUE)$selected_))
   output$plot <- renderPlot(scatter(birds, selected()))
   output$table <- renderDT(filter(birds, selected()))
 }

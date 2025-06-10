@@ -25,22 +25,67 @@ traffic <- read_csv("https://uwmadison.box.com/shared/static/x0mp3rhhic78vufsxtg
  mutate(day_of_week = wday(date))
 ```
 
-a. Design and implement a Shiny app that allows users to visualize traffic
-over time across selected subsets of cities. Make sure that it is possible
-to view data from more than one city at a time. It is not necessary to label
-the cities within the associated figure.
+a. Design and implement a Shiny app that allows users to visualize traffic over time across selected subsets of cities. Make sure that it is possible to view data from more than one city at a time. It is not necessary to label the cities within the associated figure.
 
 ```{r}
+ui <- fluidPage(
+  selectInput("cityDropdown", 
+              "Choose your city or cities", 
+              multiple = TRUE, 
+              selected = c("Bockel", "Dibbersen", "Ascheberg"), 
+              choices = unique(traffic$name)),
+  plotOutput("myTimePlot")
+  
+)
 
+server <- function(input, output) {
+  chosenCities = reactive({
+    traffic %>% 
+      filter(name %in% input$cityDropdown)
+  })
+  
+  output$myTimePlot = renderPlot({
+  ggplot(chosenCities(), aes(date, value, color = name)) +
+    geom_line()
+  })
+}
+
+shinyApp(ui, server)
 ```
 
 
-b. Introduce new inputs to allow users to select a contiguous range of days
-of the week. For example, the user should have a way of zooming into the
-samples taken within the Monday - Wednesday range.
+b. Introduce new inputs to allow users to select a contiguous range of days of the week. For example, the user should have a way of zooming into the samples taken within the Monday - Wednesday range.
 
 ```{r}
+ui <- fluidPage(
+  selectInput("cityDropdown", 
+              "Choose your city or cities", 
+              multiple = TRUE, 
+              selected = c("Bockel", "Dibbersen", "Ascheberg"), 
+              choices = unique(traffic$name)),
+  sliderInput("dateSlider",
+              "Select a date range",
+              min(traffic$date),
+              max(traffic$date),
+              value = c(min(traffic$date), max(traffic$date))),
+  plotOutput("myTimePlot")
+  
+)
 
+server <- function(input, output) {
+  chosenCities = reactive({
+    traffic %>% 
+      filter(name %in% input$cityDropdown,
+             date >= input$dateSlider[1] & date <= input$dateSlider[2])
+  })
+  
+  output$myTimePlot = renderPlot({
+  ggplot(chosenCities(), aes(date, value, color = name)) +
+    geom_line()
+  })
+}
+
+shinyApp(ui, server)
 ```
 
 
