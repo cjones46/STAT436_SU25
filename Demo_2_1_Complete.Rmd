@@ -8,7 +8,6 @@ date: "`r Sys.Date()`"
 knitr::opts_chunk$set(warnings = FALSE, message = FALSE)
 ```
 
-
 [Interactive German Traffic] This problem will revisit the previous problem
 from an interactive point of view. We will build a visualization that helps
 users explore daily traffic patterns across multiple German cities, using
@@ -26,131 +25,89 @@ traffic <- read_csv("https://uwmadison.box.com/shared/static/x0mp3rhhic78vufsxtg
  mutate(day_of_week = wday(date))
 ```
 
-a. Design and implement a Shiny app that allows users to visualize traffic
-over time across selected subsets of cities. Make sure that it is possible
-to view data from more than one city at a time. It is not necessary to label
-the cities within the associated figure.
+a. Design and implement a Shiny app that allows users to visualize traffic over time across selected subsets of cities. Make sure that it is possible to view data from more than one city at a time. It is not necessary to label the cities within the associated figure.
 
-We first define a function that, when given a subset of cities, draws a line
-plot.
-
-```{r, eval = FALSE}
-plot_traffic <- function(df) {
-  ggplot(df) +
-    geom_line(aes(date, value, group = name)) +
-    labs(x = "Date", y = "Traffic") +
-    theme(axis.title = element_text(size = 20))
-}
-```
-
-Our design will update a time series plot of all the cities every time a
-dropdown menu is updated. We will allow multiple cities to be selected
-simultaneously. Specifically, our UI has an input for choosing cities and
-displays the line plot as an output. Our server recognizes changes in the
-choice of cities, filters the data to that subset, and then draws the updated
-time series.
-    
-```{r, eval = FALSE}
-ui <- fluidPage(
-  selectInput("city", "City", unique(traffic$name), multiple = TRUE),
-  plotOutput("time_series")
-)
-
-server <- function(input, output) {
-  output$time_series <- renderPlot({
-    traffic |>
-      filter(name %in% input$city) |>
-      plot_traffic()
-  })
-}
-
-shinyApp(ui, server)
-```
-
-
-b. Introduce new inputs to allow users to select a contiguous range of days
-of the week. For example, the user should have a way of zooming into the
-samples taken within the Monday - Wednesday range.
-
-We use nearly the same design except that a new slider input is provided for
-choosing days of the week. When a range of days is chosen, then the time
-series will show only that range for the currently selected cities.
-
-```{r, eval = FALSE}
-ui <- fluidPage(
-  selectInput("city", "City", unique(traffic$name), multiple = TRUE),
-  sliderInput("day_of_week", "Days", 2, 7, c(2, 7)),
-  plotOutput("time_series")
-)
-
-server <- function(input, output) {
-  output$time_series <- renderPlot({
-    traffic |>
-      filter(
-        name %in% input$city, 
-        day_of_week >= input$day_of_week[1] & day_of_week <= input$day_of_week[2]
-      ) |>
-      plot_traffic()
-  })
-}
-
-shinyApp(ui, server)
-```
-  
 ```{r}
+myCities = c("Holz", "Hasborn", "Kastel")
+traffic %>% 
+  filter(name %in% myCities) %>% 
+ggplot(aes(date, value, group = name)) +
+  geom_line()
+```
 
-library(shiny)
-library(tidyverse)
-library(lubridate)
-library(plotly)
-
-movies <- read_csv("https://raw.githubusercontent.com/krisrs1128/stat479_s22/main/_posts/2022-02-10-week04-03/apps/data/movies.csv") %>%
-  mutate(
-    date = as_date(Release_Date, format = "%b %d %Y"),
-    year = year(date),
-    Major_Genre = fct_explicit_na(Major_Genre),
-    MPAA_Rating = fct_explicit_na(MPAA_Rating),
-  )
-
-genres <- pull(movies, Major_Genre) %>%
-  unique() %>%
-  na.omit()
-ratings <- pull(movies, MPAA_Rating) %>%
-  unique() %>%
-  na.omit()
-
-### functions used in app
-scatterplot <- function(df) {
-  p <- ggplot(mapping = aes(Rotten_Tomatoes_Rating, IMDB_Rating)) +
-    geom_point(data = df %>% filter(selected),  aes(text = Title), size = 2, alpha = 1) +
-    geom_point(data = df %>% filter(!selected),  size = .5, alpha = .1)
-  ggplotly(p, tooltip = "Title") %>%
-    style(hoveron = "fill")
+```{r}
+traffic_plot = function(dataframe) {
+  ggplot(dataframe, aes(date, value, group = name)) +
+    geom_line()
 }
+```
 
-### definition of app
-ui <- fluidPage(
-  titlePanel("IMDB Analysis"),
-  selectInput("genres", "Genre", genres),
-  checkboxGroupInput("mpaa", "MPAA Rating", ratings, ratings),
-  sliderInput("year", "Year", min = min(movies$year), max = max(movies$year), c(1928, 2020), sep = ""),
-  plotlyOutput("ratings_scatter")
+
+```{r}
+ui = fluidPage(
+  # way to select cities
+  selectInput("user_cities", 
+              label = "Select a set of cities",
+              choices = unique(traffic$name),
+              multiple = TRUE,
+              selected = c("Holz", "Hasborn", "Kastel")),
+  # the plot itself
+  plotOutput("myPlot")
+  
 )
 
-server <- function(input, output) {
- 
-
-  output$ratings_scatter <- renderPlotly({
-    scatterplot(movies %>%
-      mutate(selected = (
-        (Major_Genre %in% input$genres) &
-        (MPAA_Rating %in% input$mpaa) &
-        (year >= input$year[1]) &
-        (year <= input$year[2])
-      )))
+server = function(input, output) {
+  
+  chosenRows = reactive({
+    traffic %>% 
+      filter(name %in% input$user_cities)
   })
+  
+  output$myPlot = renderPlot({
+    traffic_plot(chosenRows())
+  })
+  
 }
 
-app <- shinyApp(ui, server)
+shinyApp(ui, server)
+```
+
+
+
+b. Introduce new inputs to allow users to select a contiguous range of days of the week. For example, the user should have a way of zooming into the samples taken within the Monday - Wednesday range.
+
+```{r}
+ui = fluidPage(
+  # way to select cities
+  selectInput("user_cities", 
+              label = "Select a set of cities",
+              choices = unique(traffic$name),
+              multiple = TRUE,
+              selected = c("Holz", "Hasborn", "Kastel")),
+  sliderInput("mySlider", 
+              label = "Select a time range",
+              min = min(traffic$date),
+              max = max(traffic$date),
+              value = c(min(traffic$date), max(traffic$date))),
+  # the plot itself
+  plotOutput("myPlot")
+  
+)
+
+server = function(input, output) {
+  
+  chosenRows = reactive({
+    traffic %>% 
+      filter(name %in% input$user_cities,
+             date >= input$mySlider[1], date <= input$mySlider[2])
+  })
+  
+  output$myPlot = renderPlot({
+    traffic_plot(chosenRows())
+  })
+  
+}
+
+shinyApp(ui, server)
 ```
 
