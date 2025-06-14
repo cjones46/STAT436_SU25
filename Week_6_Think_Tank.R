@@ -9,9 +9,7 @@ superheat(
   for_plotting,
   left.label.text.size = 2.5,
   legend = FALSE,
-  heat.pal = c("gray", "forestgreen"),
-  heat.pal.values = c(0, 1),
-  
+
   order.rows = rev(order(rownames(mtcars))),
   order.cols = order(colnames(mtcars)),
 )
@@ -21,9 +19,7 @@ superheat(
   for_plotting,
   left.label.text.size = 2.5,
   legend = FALSE,
-  heat.pal = c("gray", "forestgreen"),
-  heat.pal.values = c(0, 1),
-  
+
   row.dendrogram = TRUE,
   pretty.order.cols = TRUE,
   pretty.order.rows = TRUE,
