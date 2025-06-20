@@ -207,7 +207,7 @@ color means.
 5. Use a better color theme.
 
 For 1., the `ggrepel` package offers a function `geom_text_repel` which finds better positions for the labels, drawing links
-when necessary. (The downside to )
+when necessary.
 
 ```{r}
 ggplot(murders, aes(x = population, y = total)) +
@@ -226,7 +226,7 @@ r <- murders %>%
 r
 ```
 
-Now, we can use this as the slope in a `geom_abline` layer, which encodes a slope and intercept as a line on a graph.
+Now, we can use this as the intercept in a `geom_abline` layer, which encodes a slope (which defaults to 1) and intercept as a line on a graph.
 
 ```{r}
 ggplot(murders, aes(x = population, y = total)) +
