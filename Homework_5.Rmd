@@ -23,26 +23,31 @@ Your single interactive visualization OR both of your two non-interactive visual
 
 ## Submission Instructions
 
+As always, you do **not need to submit any data files**, such as .csv files.
+
 ### Write-Up
 
-For your write-up, please upload **a separate, well-formatted PDF or Word or other text document.** Do not include your write-up in your R code file!
-
+For your write-up, please upload **a separate, well-formatted PDF or Word or other text document.** Do not include your code in your write-up, or your write-up in your code!
 
 ### If You Choose Two Static Visualizations
 
-If you choose to submit two static visualizations, please knit an R Markdown file into a nicely-formatted .html file where both visualizations are clearly visible. *Double check you are satisfied with how the visualizations look in the .html file!*
+Please submit:
 
-**Submit both the R Markdown file and the knitted .html file**.
+- **Your code file(s), such as .Rmd or .R file(s)**
+
+- **Your write-up**, and **please include your static visualizations directly in your write-up document.** Please ensure you are satisfied with how the visualizations look in your write-up (e.g. are they large enough for labels to be readable?) since that is what we'll grade.
 
 #### If You Choose to Submit a Shiny App
 
-If you choose to submit a Shiny app, please submit both fo the following things:
+If you choose to submit a Shiny app, you have a few choices as usual to demonstrate its functionality. If you choose a series of screenshots or link to a shinyapps.io site, please include that directly in your write-up. If you choose a screen recording, submitting that separately is acceptable.
 
-- **Your .Rmd or .R file(s).** 
+Please submit:
 
-- **Evidence of your Shiny app's functionality**. For this requirement, you should submit one of the following things: a series of screenshots of your app working, a screen recording of your app working, or a public link to your app on [shinyapps.io](https://www.shinyapps.io/). (shinyapps.io is a great option if you want to show off your work to other people outside this class!)
+- **Your code file(s), such as .Rmd or .R files that create the Shiny app,**
 
-You do **not need to submit any data files**, such as .csv files.
+- **Your write-up**; if you choose to provide a series of screenshots of your app working or a link to shinyapps.io, that should go directly in this document!
+
+- If applicable, **a screen recording of your app working**; only needed if you don't have screenshots/shinyapps.io link in your write-up.
 
 ## Grading
 
@@ -87,7 +92,8 @@ Please address the following prompts in your write-up:
   
 * The bulk of your write-up should answer these prompts about the design process:
   *   What is the main question your visualization(s) investigate, and who are the intended audience?
+      * If you have an interactive visualization - how does the interactivity help answer the main question(s)?
+      * If you have two static visualizations - what guided the style customizations you chose?
   *   **Interpret** your visualization for the audience, using **non-technical, plain language**, in a way that answers the main question(s) you just listed.
       * In doing so, comment on both the general high-level takeaways and a specific interpretation of one observation/mark/element on the graph.
-  *   If you have interactivity, what does the interactivity add to the visualization?
-  *   What guided the style customizations and interface layout you used?
+
