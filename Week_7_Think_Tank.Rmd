@@ -119,7 +119,7 @@ Component 1: High Pass TD, completion %, low sack %, high pass yards per attempt
 
 Component 2: High rushing attempts but low yards - also low pass attempts. Let's call this "Loves a Short Rush".
 
-Component 3; Lots of passes but high interception rate... "Punished for their Hubris"
+Component 3; Lots of passes but high interception rate... "Lots of Passes, Lots of Picks"
 
 # Plot Quarterbacks by Components 
 
@@ -160,7 +160,7 @@ ggplot(scores, aes(PC1, PC2, col = PC3)) +
     caption = "Source: Pro Football Reference",
     x = "Devastating Passer (PC1)",
     y = "Loves a Short Rush (PC2)",
-    color = "Punished For Their Hubris (PC3)"
+    color = "Lots of Passes, Lots of Picks (PC3)"
   )
 
 ggsave("Week7_Think_Tank_QBs.png", height = 5, width = 6)
