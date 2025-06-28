@@ -1,0 +1,74 @@
+---
+title: "Untitled"
+output: html_document
+date: "`r Sys.Date()`"
+---
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(warnings = FALSE, message = FALSE)
+```
+
+```{r}
+library(tidyverse)
+th <- theme_minimal() + 
+  theme(
+    panel.grid.minor = element_blank(),
+    panel.background = element_rect(fill = "#f7f7f7"),
+    panel.border = element_rect(fill = NA, color = "#0c0c0c"),
+    axis.text = element_text(size = 14),
+    axis.title = element_text(size = 16),
+    strip.text = element_text(size = 16),
+    legend.position = "bottom"
+  )
+theme_set(th)
+```
+    
+1. [Polio Clustering] The polio dataset contains weekly counts of new polio cases across each state in the United States, starting as early as 1912. In this question, our goal is to apply $K$-means to group states with similar incidence patterns.
+
+```{r}
+polio <- read_csv("https://uwmadison.box.com/shared/static/nm7yku4y9q7ylvz5kbxya3ouj2njd0x6.csv")
+head(polio)
+```
+  
+a. Is it necessary to reshape the data before it can be used in the
+`kmeans` function? If so, provide the code. If not, provide a brief
+explanation.
+
+```{r}
+x = polio %>% 
+  pivot_wider(names_from = period_start_date, values_from = cases, values_fill = 0)
+x
+```
+
+b. Let `x` contain the output from part (a). Run $K$-means on `x` with 5 clusters.
+
+```{r}
+fit = x %>% 
+  select(-state) %>% 
+  t() %>% 
+  scale() %>% 
+  t() %>% 
+  kmeans(centers = 5)
+```
+
+c. Extract and visualize the centroids from the $K$-means fit made in part (b). Explain how to interpret these centroids.
+
+```{r}
+fit$centers %>%
+  as.data.frame() %>% 
+  mutate(cluster = 1:5) %>% 
+  relocate(cluster) %>% 
+  pivot_longer(-cluster, names_to = "date", values_to = "cases") %>% 
+  ggplot(aes(ymd(date), cases)) +
+  geom_line() +
+  facet_wrap(~cluster)
+```
+
+```{r}
+x %>% 
+  filter(fit$cluster == 5) %>% 
+  pivot_longer(-state, names_to = "date", values_to = "cases") %>% 
+  ggplot(aes(ymd(date), cases)) +
+  geom_line() +
+  facet_wrap(~state, scales = "free_y")
+```

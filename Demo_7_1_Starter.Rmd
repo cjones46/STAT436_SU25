@@ -1,0 +1,53 @@
+---
+title: "Untitled"
+output: html_document
+date: "`r Sys.Date()`"
+---
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(warnings = FALSE, message = FALSE)
+```
+
+```{r}
+library(tidyverse)
+library(tidymodels)
+theme_set(theme_classic())
+```
+
+[Food nutrients] This problem will use PCA to provide a low-dimensional view
+of a 14-dimensional nutritional facts [dataset](https://uwmadison.box.com/shared/static/nmgouzobq5367aex45pnbzgkhm7sur63.csv).
+The data were originally curated by the USDA.
+    
+```{r}
+nutrients <- read_csv("https://uwmadison.box.com/shared/static/nmgouzobq5367aex45pnbzgkhm7sur63.csv")
+View(nutrients)
+```
+    
+a. Define a tidymodels `recipe` that normalizes all nutrient features and run PCA.
+
+```{r}
+
+```
+
+
+b. Visualize the compositions of the top 6 principal components.
+
+```{r}
+
+```
+
+
+c. Compute the average PC2 score for each category of the `group_lumped` column. Order the groups from highest to lowest average PC2 value.
+
+Do these results correspond with the results of the visualization in part (b)?
+
+```{r}
+
+```
+
+d. Visualize the scores of each food item with respect to the first two
+principal components. Facet the visualization according to the `group_lumped` column, and order the facets according to part c (highest to lowest PC2 score).
+
+```{r}
+
+```
