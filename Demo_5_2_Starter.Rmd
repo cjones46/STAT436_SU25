@@ -20,17 +20,13 @@ G = tbl_graph(read_csv("https://github.com/krisrs1128/stat436_s25/raw/main/data/
 a. Visualize the connections between videos as a node-link diagram. Color nodes in by the simulated browser session.
 
 ```{r}
-ggraph(G, layout = "kk") +
-  geom_node_point(aes(color = session)) +
-  geom_edge_link()
+
 ```
 
 b. Visualize the connections between videos as an adjacency matrix.
 
 ```{r}
-ggraph(G, layout = "matrix") +
-  geom_edge_tile() +
-  geom_node_point(aes(color = session), x = 1)
+
 ```
 
 c. Compare and contrast the visualizations in parts (a) and (b). What are some of the trade-offs associated with using one view vs. the other?
@@ -39,21 +35,6 @@ d. Select a small number of channels of interest (e.g., "The Daily Show with Tre
 distinguish nodes belonging to these channels from the rest.
 
 ```{r}
-G %>% 
-  mutate(Noah = (channel == "The Daily Show with Trevor Noah")) %>% 
 
-ggraph(layout = "kk") +
-  geom_edge_link() +
-  geom_node_point(aes(color = Noah, size = Noah))
-  
-```
-
-```{r}
-G %>% 
-  mutate(Noah = (channel == "The Daily Show with Trevor Noah")) %>%
-
-ggraph(layout = "matrix") +
-  geom_edge_tile() +
-  geom_node_point(aes(color = Noah, size = Noah), x = 1)
 ```
 
