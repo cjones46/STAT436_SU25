@@ -93,8 +93,7 @@ How do movie genres relate to one another? Is romance + comedy a more common com
     their genres.
     
 **c.** A list of all the genres in this network is available
-    [here](https://github.com/krisrs1128/stat992_f23/blob/main/activities/week9/genres.csv).
-    Implement a way to visually distinguish between genres and movies. *Hint: Mutate the nodes in the `tbl_graph`.*
+    [here](https://raw.githubusercontent.com/krisrs1128/stat436_s24/refs/heads/main/data/genres.csv). *Updated 7/17: Old link here was broken, fixed now. -CJ* Implement a way to visually distinguish between genres and movies. *Hint: Mutate the nodes in the `tbl_graph`.*
 
 
 
