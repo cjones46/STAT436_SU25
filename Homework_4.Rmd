@@ -34,6 +34,33 @@ Instructor feedback on visual design is intended to help the student grow and cr
 
 # Pre-Written Problems
 
+## Global Development
+
+**a.** Using the `countries110` dataset from the `rnaturalearth` package, create a map of the world where each country is fully colored (not just the outline) by their value of `INCOME_GRP`. *Hint: `countries110` is compatible with `geom_sf`.*
+
+```{r}
+library(rnaturalearth)
+data("countries110")
+```
+
+**b.** Consider a viewer whose only interest is to find out which countries are in the lowest or highest category of `INCOME_GRP`. Describe a modification you could make to your visualization in part a) to help this viewer identify those countries. Do you think a map is the best type of visualization for this viewer's specific interest? Why or why not?  
+
+## Spotify Time Series
+
+The most streamed song on Spotify in the year 2017 was Ed Sheeran's "Shape of You". The dataset below contains the number of daily streams for this song for each day in various regions. 
+
+```{r}
+daily_streams = read_csv("https://uwmadison.box.com/shared/static/hvplyr3jy6vbt7s80lqgfx81ai4hdl0q.csv")
+```
+
+**a.** We wish to create a `tsibble` object from the above dataframe. Explain why the following line of code returns an error when you run it. Then, fix the error, converting the dataframe into a tsibble object with multiple time series. *Hint: You only need to add one argument to `tsibble()`.*
+
+```{r}
+ts = tsibble(daily_streams, index = "date")
+```
+
+**b.** Filter `ts` to just the "global" `region`. Then, make a `gg_season` plot that helps the viewer answer the question: On which day(s) of the week does this song tend to be streamed the most?
+
 ## HIV Network
 
 The code below reads in nodes and edges for a graph describing the similarity of 512 HIV samples collected across 32 countries. Two samples are linked if they have similar genetic sequences.
@@ -46,54 +73,21 @@ G <- tbl_graph(nodes, edges)
 G
 ```
 
-*(Grading note: You only need to get the visualizations for this problem functioning, you do not need to make improvements to the visual choices.)*
+*(Grading note: You only need to get the visualizations for this problem functioning, you do NOT need to make improvements to the visual choices.)*
 
 **a.** Create a basic node-link diagram of this dataset.  Then, comment on what the node-link diagram tells you about the overall structure of the network, and what you would expect the adjacency matrix to look like.
 
 **b.** Visualize the adjacency matrix for this dataset. Comment on how prominent features or patterns of the adjacency matrix show up in the node link diagram and vice versa.
 
-## UK Energy Flow
-
-We will visualize how energy is produced and consumed in the
-United Kingdom, using a [dataset](https://github.com/krisrs1128/stat436_s24/raw/main/data/energy.csv) from the UK's Department of Energy and Climate
-Change. Nodes and edges are used to classify types of activity that produce or
-consume energy. For example, the edge
-
-    ```
-    Wind    Electricity grid    289 
-    ```
-
-means that 289 KwH produced by wind power were sent to the country's electricity grid.
-
-*(Grading note: Your improvements to the visual design will be assessed for this problem as described in "Grading".)*
-    
-**a.** Build a `tbl_graph` from the provided edges.
-
-**b.** Use `ggraph` to visualize the flow of energy across nodes in this network. 
-
-Use one of the following layout options:
-
-- `"star"`
-- `"circle"`
-- `"sphere"`
-
-**c.** Choose one of the layouts (star, circle, sphere) you did **not** use in part B. Suggest a real life context whose hypothetical data would be visualized well by that layout, and explain why you think that.
-
-*(You do not actually have to find an existing dataset, but your suggestion should reference some real life context like "a hierarchy of corporate positions at a company".)*
 
 ## Movie Genres
 
 How do movie genres relate to one another? Is romance + comedy a more common combination than fantasy + adventure? We will use the dataset [here](https://github.com/krisrs1128/stat436_s24/raw/main/data/movie_links.csv) to answer these questions, using a node-link diagram.
 
-*(Grading note: Your improvements to the visual design will be assessed for this problem as described in "Grading".)*
+*(Grading note: Your improvements to the visual design WILL be assessed for this problem as described in "Grading".)*
 
-**a.** Build a `tbl_graph` from the provided dataset.
-    
-**b.** Create a node-link diagram to represent the connections between movies and
-    their genres.
-    
-**c.** A list of all the genres in this network is available
-    [here](https://raw.githubusercontent.com/krisrs1128/stat436_s24/refs/heads/main/data/genres.csv). *Updated 7/17: Old link here was broken, fixed now. -CJ* Implement a way to visually distinguish between genres and movies. *Hint: Mutate the nodes in the `tbl_graph`.*
+**a.** Build a `tbl_graph` from the provided dataset of edges.
 
+**b.** Create a node-link diagram to represent the connections between movies and their genres. Implement a way to visually distinguish between genres and movies.
 
-
+The genres in this dataset are: "Action", "Adventure", "Sci-Fi", "Comedy", "Crime", "Animation", "Thriller", "Biography", "Drama", "Family", "Horror", "Fantasy", "Romance", "Musical", "Mystery", "Sport", "War", "Western".

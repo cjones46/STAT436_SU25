@@ -1516,10 +1516,10 @@ margin-left: 0 !important;
           <li><a href="#grading" id="toc-grading">Grading</a></li>
           <li><a href="#pre-written-problems" id="toc-pre-written-problems">Pre-Written Problems</a>
           <ul>
+          <li><a href="#global-development" id="toc-global-development">Global Development</a></li>
+          <li><a href="#spotify-time-series" id="toc-spotify-time-series">Spotify Time Series</a></li>
           <li><a href="#hiv-network" id="toc-hiv-network">HIV
           Network</a></li>
-          <li><a href="#uk-energy-flow" id="toc-uk-energy-flow">UK
-          Energy Flow</a></li>
           <li><a href="#movie-genres" id="toc-movie-genres">Movie
           Genres</a></li>
           </ul></li>
@@ -1607,18 +1607,51 @@ helpful.</p></li>
 </div>
 <div id="pre-written-problems" class="section level1">
 <h1>Pre-Written Problems</h1>
+<div id="global-development" class="section level2">
+<h2>Global Development</h2>
+<p><strong>a.</strong> Using the <code>countries110</code> dataset from
+the <code>rnaturalearth</code> package, create a map of the world where
+each country is fully colored (not just the outline) by their value of
+<code>INCOME_GRP</code>. <em>Hint: <code>countries110</code> is
+compatible with <code>geom_sf</code>.</em></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rnaturalearth)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;countries110&quot;</span>)</span></code></pre></div>
+<p><strong>b.</strong> Consider a viewer whose only interest is to find
+out which countries are in the lowest or highest category of
+<code>INCOME_GRP</code>. Describe a modification you could make to your
+visualization in part a) to help this viewer identify those countries.
+Do you think a map is the best type of visualization for this viewer’s
+specific interest? Why or why not?</p>
+</div>
+<div id="spotify-time-series" class="section level2">
+<h2>Spotify Time Series</h2>
+<p>The most streamed song on Spotify in the year 2017 was Ed Sheeran’s
+“Shape of You”. The dataset below contains the number of daily streams
+for this song for each day in various regions.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>daily_streams <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://uwmadison.box.com/shared/static/hvplyr3jy6vbt7s80lqgfx81ai4hdl0q.csv&quot;</span>)</span></code></pre></div>
+<p><strong>a.</strong> We wish to create a <code>tsibble</code> object
+from the above dataframe. Explain why the following line of code returns
+an error when you run it. Then, fix the error, converting the dataframe
+into a tsibble object with multiple time series. <em>Hint: You only need
+to add one argument to <code>tsibble()</code>.</em></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ts <span class="ot">=</span> <span class="fu">tsibble</span>(daily_streams, <span class="at">index =</span> <span class="st">&quot;date&quot;</span>)</span></code></pre></div>
+<p><strong>b.</strong> Filter <code>ts</code> to just the “global”
+<code>region</code>. Then, make a <code>gg_season</code> plot that helps
+the viewer answer the question: On which day(s) of the week does this
+song tend to be streamed the most?</p>
+</div>
 <div id="hiv-network" class="section level2">
 <h2>HIV Network</h2>
 <p>The code below reads in nodes and edges for a graph describing the
 similarity of 512 HIV samples collected across 32 countries. Two samples
 are linked if they have similar genetic sequences.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidygraph)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>nodes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://github.com/krisrs1128/stat436_s25/raw/refs/heads/main/data/hiv_nodes.csv&quot;</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>edges <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://github.com/krisrs1128/stat436_s25/raw/refs/heads/main/data/hiv_edges.csv&quot;</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">tbl_graph</span>(nodes, edges)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>G</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidygraph)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>nodes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://github.com/krisrs1128/stat436_s25/raw/refs/heads/main/data/hiv_nodes.csv&quot;</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>edges <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://github.com/krisrs1128/stat436_s25/raw/refs/heads/main/data/hiv_edges.csv&quot;</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">tbl_graph</span>(nodes, edges)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>G</span></code></pre></div>
 <p><em>(Grading note: You only need to get the visualizations for this
-problem functioning, you do not need to make improvements to the visual
+problem functioning, you do NOT need to make improvements to the visual
 choices.)</em></p>
 <p><strong>a.</strong> Create a basic node-link diagram of this dataset.
 Then, comment on what the node-link diagram tells you about the overall
@@ -1628,54 +1661,22 @@ to look like.</p>
 Comment on how prominent features or patterns of the adjacency matrix
 show up in the node link diagram and vice versa.</p>
 </div>
-<div id="uk-energy-flow" class="section level2">
-<h2>UK Energy Flow</h2>
-<p>We will visualize how energy is produced and consumed in the United
-Kingdom, using a <a href="https://github.com/krisrs1128/stat436_s24/raw/main/data/energy.csv">dataset</a>
-from the UK’s Department of Energy and Climate Change. Nodes and edges
-are used to classify types of activity that produce or consume energy.
-For example, the edge</p>
-<pre><code>```
-Wind    Electricity grid    289 
-```</code></pre>
-<p>means that 289 KwH produced by wind power were sent to the country’s
-electricity grid.</p>
-<p><em>(Grading note: Your improvements to the visual design will be
-assessed for this problem as described in “Grading”.)</em></p>
-<p><strong>a.</strong> Build a <code>tbl_graph</code> from the provided
-edges.</p>
-<p><strong>b.</strong> Use <code>ggraph</code> to visualize the flow of
-energy across nodes in this network.</p>
-<p>Use one of the following layout options:</p>
-<ul>
-<li><code>&quot;star&quot;</code></li>
-<li><code>&quot;circle&quot;</code></li>
-<li><code>&quot;sphere&quot;</code></li>
-</ul>
-<p><strong>c.</strong> Choose one of the layouts (star, circle, sphere)
-you did <strong>not</strong> use in part B. Suggest a real life context
-whose hypothetical data would be visualized well by that layout, and
-explain why you think that.</p>
-<p><em>(You do not actually have to find an existing dataset, but your
-suggestion should reference some real life context like “a hierarchy of
-corporate positions at a company”.)</em></p>
-</div>
 <div id="movie-genres" class="section level2">
 <h2>Movie Genres</h2>
 <p>How do movie genres relate to one another? Is romance + comedy a more
 common combination than fantasy + adventure? We will use the dataset <a href="https://github.com/krisrs1128/stat436_s24/raw/main/data/movie_links.csv">here</a>
 to answer these questions, using a node-link diagram.</p>
-<p><em>(Grading note: Your improvements to the visual design will be
+<p><em>(Grading note: Your improvements to the visual design WILL be
 assessed for this problem as described in “Grading”.)</em></p>
 <p><strong>a.</strong> Build a <code>tbl_graph</code> from the provided
-dataset.</p>
+dataset of edges.</p>
 <p><strong>b.</strong> Create a node-link diagram to represent the
-connections between movies and their genres.</p>
-<p><strong>c.</strong> A list of all the genres in this network is
-available <a href="https://raw.githubusercontent.com/krisrs1128/stat436_s24/refs/heads/main/data/genres.csv">here</a>.
-<em>Updated 7/17: Old link here was broken, fixed now. -CJ</em>
-Implement a way to visually distinguish between genres and movies.
-<em>Hint: Mutate the nodes in the <code>tbl_graph</code>.</em></p>
+connections between movies and their genres. Implement a way to visually
+distinguish between genres and movies.</p>
+<p>The genres in this dataset are: “Action”, “Adventure”, “Sci-Fi”,
+“Comedy”, “Crime”, “Animation”, “Thriller”, “Biography”, “Drama”,
+“Family”, “Horror”, “Fantasy”, “Romance”, “Musical”, “Mystery”, “Sport”,
+“War”, “Western”.</p>
 </div>
 </div>
 
