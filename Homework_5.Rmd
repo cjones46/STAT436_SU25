@@ -7,61 +7,40 @@ output: rmdformats::robobook
 ---
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, eval = FALSE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
 
 # Logistics
 
-This homework consists of a portfolio visualization (or two) and an associated written report ("write-up").
+This homework consists of a portfolio visualization and an associated written report ("write-up").
 
-You may prepare EITHER:
+You will create a single visualization with at least one interactive feature (this can be an external feature like a button, or an on-plot feature like clicking or brushing).
 
-- A single interactive visualization, or:
-- Two static, non-interactive visualizations
-
-Your single interactive visualization OR both of your two non-interactive visualizations must **visualize the results of a clustering algorithm, dimensionality-reduction algorithm, topic model, OR deep learning model.**
+Your visualization must **visualize the results of a clustering algorithm, dimensionality-reduction algorithm, topic model, OR deep learning model.**
 
 ## Submission Instructions
 
 As always, you do **not need to submit any data files**, such as .csv files.
 
-### Write-Up
-
-For your write-up, please upload **a separate, well-formatted PDF or Word or other text document.** Do not include your code in your write-up, or your write-up in your code!
-
-### If You Choose Two Static Visualizations
-
 Please submit:
 
 - **Your code file(s), such as .Rmd or .R file(s)**
 
-- **Your write-up**, and **please include your static visualizations directly in your write-up document.** Please ensure you are satisfied with how the visualizations look in your write-up (e.g. are they large enough for labels to be readable?) since that is what we'll grade.
+- **Your write-up**, as a separate, well-formatted PDF or Word or other text document.
 
-#### If You Choose to Submit a Shiny App
-
-If you choose to submit a Shiny app, you have a few choices as usual to demonstrate its functionality. If you choose a series of screenshots or link to a shinyapps.io site, please include that directly in your write-up. If you choose a screen recording, submitting that separately is acceptable.
-
-Please submit:
-
-- **Your code file(s), such as .Rmd or .R files that create the Shiny app,**
-
-- **Your write-up**; if you choose to provide a series of screenshots of your app working or a link to shinyapps.io, that should go directly in this document!
-
-- If applicable, **a screen recording of your app working**; only needed if you don't have screenshots/shinyapps.io link in your write-up.
+- **Evidence of interactivity**, either through a series of screenshots, 
 
 ## Grading
 
-#### Visualization(s) [30 points]
+#### Visualization [25 points]
 
 **Design Choices [20 points]**: The visualization(s) should effectively and intuitively answer meaningful questions. Your design choices should go above and beyond defaults, and show critical thinking as well as attention to detail towards aiding the viewer in understanding the takeaway(s) of the visualization. Strive to make your graphs as polished as possible; especially with choices such as layout, labels, sizes, themes, and colors. Though it may build from course examples, the submission should demonstrate independent and creative thinking.
 
-**Code Useability [5 points]**: Techniques to improve the conciseness and readability of code are used. Variables are appropriately named and code is effectively spaced and formatted. In an interactive setting, this could include using reactive expressions to avoid unnecessary duplication, and extracting graphing or other helper functions outside of render* commands.
-
 **Problem Formulation [5 points]**: The context of the visualization is appropriately communicated, and all data are reported within context, rather than assuming prior familiarity with specific variable names or data collection methods, for example. (*You can still use field-specific terminology if your intended audience would know what it means, but any such terms should be explained in your write-up.*) The problem or question the visualization investigates should not have an obvious answer, and the visualization could have an audience beyond the course. 
 
-#### Write-up [20 points]
+#### Write-up [25 points]
 
-**Discussion Quality [15 points]**: The write-up is thorough with respect to each prompt but not overly wordy and avoids technical jargon. Writing demonstrates critical thinking about the author's own workflows, decisions, and what information needs to be communicated to the viewer.
+**Discussion Quality [20 points]**: The write-up is thorough with respect to each prompt but not overly wordy and avoids technical jargon. Writing demonstrates critical thinking about the author's own workflows, decisions, and what information needs to be communicated to the viewer.
 
 **Discussion Formatting [5 points]**: The write-up uses correct and engaging grammar (e.g. varied sentence length), and uses paragraphs/headers/other formatting to appropriately organize the text.
 
@@ -73,11 +52,11 @@ Choose a dataset you are interested in visualizing. You may choose any dataset, 
 
 You can also run `data()` in your R console to see all of the built-in datasets in the packages that you have loaded.
 
-With your chosen dataset, create a single interactive visualiation OR two non-interactive visualizations. Your single interactive visualization OR both of your non-interactive visualizations must **visualize the results of a clustering algorithm, dimensionality-reduction algorithm, topic model, OR deep learning model.**
+With your chosen dataset, create one visualization with at least one interactive feature (can be external like a button, or on-plot like clicking and hovering). This visualization must **visualize the results of a clustering algorithm, dimensionality-reduction algorithm, topic model, OR deep learning model.**
 
 # Write-up
 
-**Write-ups have a word maximum of 750 words.** 
+**Write-ups have a word maximum of 500 words.** 
 
 Write-ups should be aimed at someone with **no knowledge or interest in coding** (e.g. do not mention specific functions), but who is interested in understanding your visualization and how you developed it.
 
@@ -91,9 +70,8 @@ Please address the following prompts in your write-up:
   *   A brief explanation of any variables relevant to understanding the visualization; including units and brief background information where necessary. You do not need to cite specific variable names.
   
 * The bulk of your write-up should answer these prompts about the design process:
-  *   What is the main question your visualization(s) investigate, and who are the intended audience?
-      * If you have an interactive visualization - how does the interactivity help answer the main question(s)?
-      * If you have two static visualizations - what guided the style customizations you chose?
+  *   What is/are the main question(s) your visualization investigates, and who are the intended audience?
+  
   *   **Interpret** your visualization for the audience, using **non-technical, plain language**, in a way that answers the main question(s) you just listed.
-      * In doing so, comment on both the general high-level takeaways and a specific interpretation of one observation/mark/element on the graph.
+  *   Justify how your interactive element helps the viewer answer the main question(s) you just listed.
 

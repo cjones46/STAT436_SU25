@@ -1451,7 +1451,7 @@ margin-left: 0 !important;
           </ul></li>
           <li><a href="#portfolio-visualization" id="toc-portfolio-visualization">Portfolio
           Visualization</a></li>
-          <li><a href="#write-up-1" id="toc-write-up-1">Write-up</a></li>
+          <li><a href="#write-up" id="toc-write-up">Write-up</a></li>
           </ul>
         </nav>
         <ul class="authors">
@@ -1482,64 +1482,32 @@ Sankaran, adapted by Cameron Jones</span></li>
 <!-- Don't indent these lines or it will mess pre blocks indentation --> 
 <div id="logistics" class="section level1">
 <h1>Logistics</h1>
-<p>This homework consists of a portfolio visualization (or two) and an
-associated written report (“write-up”).</p>
-<p>You may prepare EITHER:</p>
-<ul>
-<li>A single interactive visualization, or:</li>
-<li>Two static, non-interactive visualizations</li>
-</ul>
-<p>Your single interactive visualization OR both of your two
-non-interactive visualizations must <strong>visualize the results of a
-clustering algorithm, dimensionality-reduction algorithm, topic model,
-OR deep learning model.</strong></p>
+<p>This homework consists of a portfolio visualization and an associated
+written report (“write-up”).</p>
+<p>You will create a single visualization with at least one interactive
+feature (this can be an external feature like a button, or an on-plot
+feature like clicking or brushing).</p>
+<p>Your visualization must <strong>visualize the results of a clustering
+algorithm, dimensionality-reduction algorithm, topic model, OR deep
+learning model.</strong></p>
 <div id="submission-instructions" class="section level2">
 <h2>Submission Instructions</h2>
 <p>As always, you do <strong>not need to submit any data files</strong>,
 such as .csv files.</p>
-<div id="write-up" class="section level3">
-<h3>Write-Up</h3>
-<p>For your write-up, please upload <strong>a separate, well-formatted
-PDF or Word or other text document.</strong> Do not include your code in
-your write-up, or your write-up in your code!</p>
-</div>
-<div id="if-you-choose-two-static-visualizations" class="section level3">
-<h3>If You Choose Two Static Visualizations</h3>
 <p>Please submit:</p>
 <ul>
 <li><p><strong>Your code file(s), such as .Rmd or .R
 file(s)</strong></p></li>
-<li><p><strong>Your write-up</strong>, and <strong>please include your
-static visualizations directly in your write-up document.</strong>
-Please ensure you are satisfied with how the visualizations look in your
-write-up (e.g. are they large enough for labels to be readable?) since
-that is what we’ll grade.</p></li>
+<li><p><strong>Your write-up</strong>, as a separate, well-formatted PDF
+or Word or other text document.</p></li>
+<li><p><strong>Evidence of interactivity</strong>, either through a
+series of screenshots,</p></li>
 </ul>
-<div id="if-you-choose-to-submit-a-shiny-app" class="section level4">
-<h4>If You Choose to Submit a Shiny App</h4>
-<p>If you choose to submit a Shiny app, you have a few choices as usual
-to demonstrate its functionality. If you choose a series of screenshots
-or link to a shinyapps.io site, please include that directly in your
-write-up. If you choose a screen recording, submitting that separately
-is acceptable.</p>
-<p>Please submit:</p>
-<ul>
-<li><p><strong>Your code file(s), such as .Rmd or .R files that create
-the Shiny app,</strong></p></li>
-<li><p><strong>Your write-up</strong>; if you choose to provide a series
-of screenshots of your app working or a link to shinyapps.io, that
-should go directly in this document!</p></li>
-<li><p>If applicable, <strong>a screen recording of your app
-working</strong>; only needed if you don’t have screenshots/shinyapps.io
-link in your write-up.</p></li>
-</ul>
-</div>
-</div>
 </div>
 <div id="grading" class="section level2">
 <h2>Grading</h2>
-<div id="visualizations-30-points" class="section level4">
-<h4>Visualization(s) [30 points]</h4>
+<div id="visualization-25-points" class="section level4">
+<h4>Visualization [25 points]</h4>
 <p><strong>Design Choices [20 points]</strong>: The visualization(s)
 should effectively and intuitively answer meaningful questions. Your
 design choices should go above and beyond defaults, and show critical
@@ -1549,12 +1517,6 @@ graphs as polished as possible; especially with choices such as layout,
 labels, sizes, themes, and colors. Though it may build from course
 examples, the submission should demonstrate independent and creative
 thinking.</p>
-<p><strong>Code Useability [5 points]</strong>: Techniques to improve
-the conciseness and readability of code are used. Variables are
-appropriately named and code is effectively spaced and formatted. In an
-interactive setting, this could include using reactive expressions to
-avoid unnecessary duplication, and extracting graphing or other helper
-functions outside of render* commands.</p>
 <p><strong>Problem Formulation [5 points]</strong>: The context of the
 visualization is appropriately communicated, and all data are reported
 within context, rather than assuming prior familiarity with specific
@@ -1565,9 +1527,9 @@ write-up.</em>) The problem or question the visualization investigates
 should not have an obvious answer, and the visualization could have an
 audience beyond the course.</p>
 </div>
-<div id="write-up-20-points" class="section level4">
-<h4>Write-up [20 points]</h4>
-<p><strong>Discussion Quality [15 points]</strong>: The write-up is
+<div id="write-up-25-points" class="section level4">
+<h4>Write-up [25 points]</h4>
+<p><strong>Discussion Quality [20 points]</strong>: The write-up is
 thorough with respect to each prompt but not overly wordy and avoids
 technical jargon. Writing demonstrates critical thinking about the
 author’s own workflows, decisions, and what information needs to be
@@ -1590,16 +1552,15 @@ Search</a>, <a href="https://registry.opendata.aws/">AWS Data
 Registry</a>, <a href="https://data-wi-dnr.opendata.arcgis.com/">Wisconsin DNR</a>, <a href="https://www.ipums.org/">IPUMS Census Data</a>, <a href="https://github.com/fivethirtyeight/data/">538</a></p>
 <p>You can also run <code>data()</code> in your R console to see all of
 the built-in datasets in the packages that you have loaded.</p>
-<p>With your chosen dataset, create a single interactive visualiation OR
-two non-interactive visualizations. Your single interactive
-visualization OR both of your non-interactive visualizations must
-<strong>visualize the results of a clustering algorithm,
-dimensionality-reduction algorithm, topic model, OR deep learning
-model.</strong></p>
+<p>With your chosen dataset, create one visualization with at least one
+interactive feature (can be external like a button, or on-plot like
+clicking and hovering). This visualization must <strong>visualize the
+results of a clustering algorithm, dimensionality-reduction algorithm,
+topic model, OR deep learning model.</strong></p>
 </div>
-<div id="write-up-1" class="section level1">
+<div id="write-up" class="section level1">
 <h1>Write-up</h1>
-<p><strong>Write-ups have a word maximum of 750 words.</strong></p>
+<p><strong>Write-ups have a word maximum of 500 words.</strong></p>
 <p>Write-ups should be aimed at someone with <strong>no knowledge or
 interest in coding</strong> (e.g. do not mention specific functions),
 but who is interested in understanding your visualization and how you
@@ -1623,22 +1584,13 @@ necessary. You do not need to cite specific variable names.</li>
 <li>The bulk of your write-up should answer these prompts about the
 design process:
 <ul>
-<li>What is the main question your visualization(s) investigate, and who
-are the intended audience?
-<ul>
-<li>If you have an interactive visualization - how does the
-interactivity help answer the main question(s)?</li>
-<li>If you have two static visualizations - what guided the style
-customizations you chose?</li>
-</ul></li>
-<li><strong>Interpret</strong> your visualization for the audience,
+<li><p>What is/are the main question(s) your visualization investigates,
+and who are the intended audience?</p></li>
+<li><p><strong>Interpret</strong> your visualization for the audience,
 using <strong>non-technical, plain language</strong>, in a way that
-answers the main question(s) you just listed.
-<ul>
-<li>In doing so, comment on both the general high-level takeaways and a
-specific interpretation of one observation/mark/element on the
-graph.</li>
-</ul></li>
+answers the main question(s) you just listed.</p></li>
+<li><p>Justify how your interactive element helps the viewer answer the
+main question(s) you just listed.</p></li>
 </ul></li>
 </ul>
 </div>
